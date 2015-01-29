@@ -36,13 +36,20 @@ body {
     margin-bottom: 5px;
 }
 
+#chart-wrapper, #thermo-wrapper {
+    width: 70%;
+    clear: both;
+    margin: 0 auto;
+}
 
 #content {
-    width:700px;
-    margin:30px auto;
+    margin: 0 auto;
+    text-align: center
 }
+
 .thermometer {
     float: left;
+    clear: both;
     margin:0 150px;
 }
 .thermometer {

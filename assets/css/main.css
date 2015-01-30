@@ -18,7 +18,7 @@ body {
 }
 
 body > nav {
-    border: none !important;
+/*    border: none !important;*/
 }
 
 .navbar-header, .nav, .navbar {
@@ -93,4 +93,6 @@ body > nav {
 .btn {
     background-color: #a3f3c9;
     padding: 8px 12px 6px;
+    border-color: black;
+    border-width: 1px;
 }

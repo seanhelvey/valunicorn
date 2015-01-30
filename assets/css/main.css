@@ -37,14 +37,14 @@ body > nav {
     padding-right: 15px;
 }
 
-.jumbotron h1 {
+/*.jumbotron h1 {
    color: #a3f3c9;
-   -webkit-text-fill-color: #a3f3c9; /* Will override color (regardless of order) */
+   -webkit-text-fill-color: #a3f3c9;  Will override color (regardless of order)
    -webkit-text-stroke-width: 2px;
    -webkit-text-stroke-color: black;
-}
+}*/
 
-@-moz-document url-prefix() {
+
   .jumbotron h1 {
        color: #a3f3c9;
        text-shadow:
@@ -54,7 +54,6 @@ body > nav {
           -1px 1px 0 #000,
            1px 1px 0 #000;
   }
-}
 
 #unicorn {
     height: 200px;

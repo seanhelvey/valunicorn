@@ -115,7 +115,6 @@ section#two {
 
 section#pricing {
   background-color: #EEE;
-  height: 310px;
 }
 
 .img-responsive {
@@ -134,13 +133,16 @@ section#pricing {
   .list-group {
     margin: 0px 15% 20px 15%;
   }
-  #pricing {
-    height: 400px;
+  section#pricing {
+    height: 350px;
   }
 }
 
 @media(min-width:768px){
   .list-group {
     margin: 0px 35% 20px 35%;
+  }
+  section#pricing {
+    height: 310px;
   }
 }

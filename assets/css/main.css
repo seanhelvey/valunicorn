@@ -1,5 +1,6 @@
 * {
   font-family: lato, sans-serif;
+  text-align: center;
 }
 
 body {
@@ -70,13 +71,6 @@ body > nav {
 #unicorn {
     height: 200px;
     width: 200px;
-    padding-bottom: 5px;
-    margin-top: 20px;
-}
-
-#mc_embed_signup {
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 #subscribe_label {
@@ -130,6 +124,10 @@ section#pricing {
 
 .list-group-item {
     display: list-item;
+}
+
+#email_input, #subscribe_label, #unicorn, #mc-embedded-subscribe, #footer {
+  margin: 10px;
 }
 
 @media(max-width:768px){

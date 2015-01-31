@@ -6,6 +6,10 @@ body {
   padding-top: 50px;
 }
 
+h2 {
+  margin-bottom: 20px;
+}
+
 .container {
     margin: 0;
     padding: 0;
@@ -56,6 +60,11 @@ body > nav {
         1px -1px 0 #000,
         -1px 1px 0 #000,
          1px 1px 0 #000;
+}
+
+.jumbotron .lead {
+  font-size: 24px;
+  font-weight: 400;
 }
 
 #unicorn {
@@ -112,9 +121,25 @@ section#two {
 
 section#pricing {
   background-color: #EEE;
-  height: 400px;
+  height: 310px;
 }
 
 .img-responsive {
     margin: 0 auto;
+}
+
+.list-group-item {
+    display: list-item;
+}
+
+@media(max-width:768px){
+  .list-group {
+    margin: 0px 15% 20px 15%;
+  }
+}
+
+@media(min-width:768px){
+  .list-group {
+    margin: 0px 35% 20px 35%;
+  }
 }

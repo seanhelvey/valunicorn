@@ -44,21 +44,25 @@ body > nav {
    -webkit-text-stroke-color: black;
 }*/
 
+.jumbotron {
+  margin-bottom: 0px;
+}
 
-  .jumbotron h1 {
-       color: #a3f3c9;
-       text-shadow:
-           3px 3px 0 #000,
-         -1px -1px 0 #000,
-          1px -1px 0 #000,
-          -1px 1px 0 #000,
-           1px 1px 0 #000;
-  }
+.jumbotron h1 {
+     color: #a3f3c9;
+     text-shadow:
+         3px 3px 0 #000,
+       -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+         1px 1px 0 #000;
+}
 
 #unicorn {
     height: 200px;
     width: 200px;
     padding-bottom: 5px;
+    margin-top: 20px;
 }
 
 #mc_embed_signup {
@@ -94,4 +98,23 @@ body > nav {
     padding: 8px 12px 6px;
     border-color: black;
     border-width: 1px;
+}
+
+section {
+  padding: 20px 0px 20px 0px;
+  margin: 0px 0px 0px 0px;
+  text-align: center;
+}
+
+section#two {
+  background-color: #EEE;
+}
+
+section#pricing {
+  background-color: #EEE;
+  height: 400px;
+}
+
+.img-responsive {
+    margin: 0 auto;
 }

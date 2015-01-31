@@ -134,6 +134,9 @@ section#pricing {
   .list-group {
     margin: 0px 15% 20px 15%;
   }
+  #pricing {
+    height: 400px;
+  }
 }
 
 @media(min-width:768px){

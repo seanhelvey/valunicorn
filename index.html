@@ -41,8 +41,6 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#mc_embed_signup">Subscribe</a></li>
-            <li><a href="#ranking"></a></li>
 
           </ul>
         </div><!--/.nav-collapse -->
@@ -55,31 +53,8 @@
         <h1>Value Investing Newsletter</h1>
         <p class="lead">Valunicorn helps you purchase the most reliable dividend paying stocks at the right time.</p>
       </div>
-      <section id="one">
-      <h2>When to Invest Your Money</h2>
-      <img class="img-responsive" src="assets/img/FinalGoodBadThermometer.png">
-      </section>
-      <section id="two">
-      <h2>Which Companies to Purchase</h2>
-      <ol class="list-group">
-        <li class="list-group-item lead">IBM</li>
-        <li class="list-group-item lead">GE</li>
-        <li class="list-group-item lead">MCO</li>
-        <li class="list-group-item lead">UPS</li>
-        <li class="list-group-item lead">WFC</li>
-      </ol>
-      </section>
-      <section id="three">
-      <h2>Historical Value Levels</h2>
-      <img class="img-responsive" src="assets/img/HistoricalValue.png">
-      </section>
-      <section id="pricing">
-      <h2>How Much Does Valunicorn Cost?</h2>
-      <div class="lead"><i class="glyphicon glyphicon-usd"></i> We are not charging for Valunicorn <i>yet</i>.</div>
-      <div class="lead"><i class="glyphicon glyphicon-envelope"></i> You can subscribe to the newsletter for free.</div>
-      <div class="lead"><i class="glyphicon glyphicon-credit-card"></i> Future subscribers will pay $9 per month.</div>
-      <div class="lead"><i class="glyphicon glyphicon-heart"></i> Join now and receive Valunicorn free until 2016.</div>
-      </section>
+
+      <div id="contact">
       <!-- Begin MailChimp Signup Form -->
 <!--       <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css"> -->
       <style type="text/css">
@@ -99,6 +74,60 @@
           </div>
       </form>
       </div>
+      </div>
+
+
+      <section id="two" class="jumbotron">
+      <h2>Which Companies to Purchase</h2>
+      <p class="lead">Every month we apply our rigorous selection process to provide you with the best companies ranked according to value. This exclusive list contains only highly liquid stocks that have upheld their dividend for over two decades and met other strict standards.</p>
+      <ol class="list-group">
+        <li class="list-group-item lead">KO</li>
+        <li class="list-group-item lead">XOM</li>
+        <li class="list-group-item lead">PG</li>
+        <li class="list-group-item lead">JNJ</li>
+        <li class="list-group-item lead">WMT</li>
+      </ol>
+      </section>
+
+
+
+      <section id="one" class="jumbotron">
+      <h2>When to Invest Your Money</h2>
+      <p class="lead light">You have to know when to invest in order to earn an adequate return. Our system provides subscribers with a simple measure of value in the market as a whole. A higher level on the meter indicates good value, while a lower level implies relatively poor value.</p>
+      <img class="img-responsive" src="assets/img/FinalGoodBadThermometer.png">
+      </section>
+
+
+
+      <section id="three" class="jumbotron">
+      <h2>Historical Value Levels</h2>
+      <p class="lead">For those investors who want more historical context, we can provide over 90 years of output from our proprietary model. Subscribers will be able to compare current levels with previous data points by viewing our charts every month or doing their own analysis.</p>
+      <img id="historical" class="img-responsive" src="assets/img/HistoricalValue.png">
+      </section>
+
+
+      <section id="pricing" class="jumbotron">
+      <h2>Pricing</h2>
+      <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+      <i class="glyphicon glyphicon-usd"></i>
+      <div class="lead">We are not charging for Valunicorn <i>yet</i>.</div>
+      </div>
+      <div class="col-md-3">
+      <i class="glyphicon glyphicon-credit-card"></i>
+      <div class="lead">Future subscribers will pay $9 per month.</div>
+      </div>
+      <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+      <i class="glyphicon glyphicon-envelope"></i>
+      <div class="lead">Our monthly newsletter will keep you informed.</div>
+      </div>
+      <div class="col-md-3">
+      <i class="glyphicon glyphicon-heart"></i>
+      <div class="lead">Receive Valunicorn for free during 2015!</div>
+      </div>
+      </div>
+      </section>
 
       <!--End mc_embed_signup-->
       <div id="footer">
@@ -112,12 +141,18 @@
       $('nav a').click(function(){
         var offset = 50;
         if($('.navbar-toggle').css('display') == 'block' && !$(this).siblings().length) {
-            offset = 160;
+            offset = 50;
         }
         $('html, body').animate({
             scrollTop: ($( $.attr(this, 'href') ).offset().top - offset)
         }, 500);
         return false;
+      });
+
+      $('.navbar-collapse a').click(function (e) {
+          if($('.navbar-toggle').css('display') == 'block' && !$(this).siblings().length){
+              $('.navbar-collapse').collapse('toggle');
+          }
       });
     </script>
     <script>

@@ -1,6 +1,7 @@
 * {
   font-family: lato, sans-serif;
   text-align: center;
+  color: #343434;
 }
 
 body {
@@ -23,7 +24,7 @@ h2 {
 }
 
 body > nav {
-/*    border: none !important;*/
+    border: none !important;
 }
 
 .navbar-header, .nav, .navbar {
@@ -53,19 +54,19 @@ body > nav {
   margin-bottom: 0px;
 }
 
-.jumbotron h1 {
-     color: #a3f3c9;
-     text-shadow:
-         3px 3px 0 #000,
+.jumbotron h1, h2 {
+     color: #343434;
+/*     text-shadow:
+         2px 2px 0 #000,
        -1px -1px 0 #000,
         1px -1px 0 #000,
         -1px 1px 0 #000,
-         1px 1px 0 #000;
+         1px 1px 0 #000;*/
 }
 
 .jumbotron .lead {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 #unicorn {
@@ -99,22 +100,33 @@ body > nav {
 .btn {
     background-color: #a3f3c9;
     padding: 8px 12px 6px;
-    border-color: black;
-    border-width: 1px;
 }
 
 section {
-  padding: 20px 0px 20px 0px;
+  padding: 100px 0px 100px 0px;
   margin: 0px 0px 0px 0px;
   text-align: center;
 }
 
+#contact {
+  padding: 20px 0px 20px 0px;
+}
+
+section#one, section#pricing {
+  background-color: white;
+}
+
 section#two {
+  color: white;
   background-color: #EEE;
 }
 
-section#pricing {
+section#three {
   background-color: #EEE;
+}
+
+#historical {
+  max-width: 80%;
 }
 
 .img-responsive {
@@ -126,15 +138,16 @@ section#pricing {
 }
 
 #email_input, #subscribe_label, #unicorn, #mc-embedded-subscribe, #footer {
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
 @media(max-width:768px){
   .list-group {
     margin: 0px 15% 20px 15%;
   }
-  section#pricing {
-    height: 350px;
+  section div.lead{
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 
@@ -142,7 +155,15 @@ section#pricing {
   .list-group {
     margin: 0px 35% 20px 35%;
   }
-  section#pricing {
-    height: 310px;
+  section p{
+    padding-left: 40px;
+    padding-right: 40px;
   }
+  h2 {
+    font-size: 48px;
+  }
+}
+
+.glyphicon {
+  font-size: 36px;
 }

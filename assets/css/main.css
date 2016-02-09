@@ -4,6 +4,8 @@
   color: #343434;
 }
 
+#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+
 body {
   padding-top: 50px;
 }
@@ -13,10 +15,14 @@ h2 {
 }
 
 .container {
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
-    width: 100%;
+    width: 100% !important;
     text-align: center;
+}
+
+.row {
+  max-width: none !important;
 }
 
 .container .navbar-header .navbar-brand {
@@ -137,7 +143,7 @@ section#three {
     display: list-item;
 }
 
-#email_input, #subscribe_label, #unicorn, #mc-embedded-subscribe, #footer {
+#mce-EMAIL, #subscribe_label, #unicorn, #mc-embedded-subscribe, #footer {
   margin-bottom: 10px;
 }
 

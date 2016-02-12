@@ -40,10 +40,14 @@ body {
     margin-bottom: 5px;
 }*/
 
-#chart-wrapper, #thermo-wrapper {
+#chart-wrapper {
     width: 60%;
     clear: both;
     margin: 0 auto;
+}
+
+#thermo-wrapper {
+    padding: 10px 0px;
 }
 
 #chart > svg {

@@ -94,32 +94,59 @@
 
       <div class="row" id="tools_row">
         <div class="col-sm-4">
-          <h3>Price Forecast</h3>
-          <a href="">More info</a>
-          <div id="weather-vane"></div>
-        </div>
-        <div class="col-sm-4">
-          <div id="thermo_wrapper">                  
             <h3>Value Meter</h3>
-            <img id="good_bad_cropped" src="assets/img/goodbadcropped.png">
-            <div id="thermo1" class="thermometer">
-                <div class="track">
-                    <div class="goal">
-                        <div class="amount">13</div>
-                    </div>
-                    <div id="thermo_progress" class="progress">
-                        <div class="amount">11</div>
-                    </div>
-                </div>
+            <div class="row">
+              <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Meter Infos">More info</a>
             </div>
+            <div id="thermo-wrapper">                              
+              <img id="good_bad_cropped" src="assets/img/goodbadcropped.png">
+              <div id="thermo1" class="thermometer">
+                  <div class="track">
+                      <div class="goal">
+                          <div class="amount">13</div>
+                      </div>
+                      <div id="thermo_progress" class="progress">
+                          <div class="amount">11</div>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
         <div class="col-sm-4">
+          <h3>Price Forecast</h3>
+          <div class="row">
+            <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Price Forecast Infos">More info</a>
+          </div>
+          <div id="weather-vane"></div>
+        </div>
+        <div class="col-sm-4">
           <h3>Asset Allocation</h3>
+          <div class="row">
+            <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Asset Allocation Infos">More info</a>
+          </div>
           <img class="img-responsive" src="assets/img/AugSepMeter.png">
         </div>
       </div>
+
       </section>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
 
       <section id="three" class="jumbotron">
       <h2>Historical Value Levels</h2>
@@ -301,5 +328,8 @@
 
     });
     </script>    
+
+    <script type="text/javascript" src="assets/js/modal.js"></script>
+
   </body>
 </html>

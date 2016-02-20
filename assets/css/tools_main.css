@@ -51,7 +51,9 @@ body {
 }
 
 #chart > svg {
+    width: 105%;
     padding: 10px;
+    background-color: white;
 }
 
 /*#content {

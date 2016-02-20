@@ -1,0 +1,10 @@
+.underline {
+  text-decoration: underline;
+}
+
+.howto {
+    font-size: 18px;
+    margin: 0 auto;
+    padding: 0;
+    list-style-position: inside;
+}

@@ -147,6 +147,22 @@ section#three {
   margin-bottom: 10px;
 }
 
+.glyphicon {
+  font-size: 36px;
+}
+
+#weather-vane {
+  margin: 15% auto;
+  margin-top: 30%;
+  width: 80%;
+  padding: 20px;
+  border-radius: 5px;
+  /* Rotate div */
+  -ms-transform: rotate(40deg); /* IE 9 */
+  -webkit-transform: rotate(40deg); /* Chrome, Safari, Opera */
+  transform: rotate(40deg);
+}
+
 @media(max-width:768px){
   .list-group {
     margin: 0px 5% 20px 10%;
@@ -155,6 +171,10 @@ section#three {
     padding-left: 40px;
     padding-right: 40px;
   }
+
+  #weather-vane {
+    margin: 15% auto;
+    width: 50%;
 }
 
 @media(min-width:768px){
@@ -168,20 +188,4 @@ section#three {
   h2 {
     font-size: 48px;
   }
-}
-
-.glyphicon {
-  font-size: 36px;
-}
-
-#weather-vane {
-  margin: 20% auto;
-  width: 50%;
-  height: 100px;
-  background-color: yellow;
-  border: 5px solid lightblue;
-  /* Rotate div */
-  -ms-transform: rotate(7deg); /* IE 9 */
-  -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */
-  transform: rotate(7deg);
 }

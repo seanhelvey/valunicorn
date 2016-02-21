@@ -151,16 +151,20 @@ section#three {
   font-size: 36px;
 }
 
+#weather-vane-wrapper {
+  border: 3px solid #979797;
+  border-radius: 100px;  
+  margin: 30px 20px 0px 20px;
+}
+
 #weather-vane {
   margin: 15% auto;
-  margin-top: 30%;
   width: 80%;
-  padding: 20px;
-  border-radius: 5px;
+  padding: 20px 10px;
   /* Rotate div */
-  -ms-transform: rotate(40deg); /* IE 9 */
-  -webkit-transform: rotate(40deg); /* Chrome, Safari, Opera */
-  transform: rotate(40deg);
+  -ms-transform: rotate(-20deg); /* IE 9 */
+  -webkit-transform: rotate(-20deg); /* Chrome, Safari, Opera */
+  transform: rotate(-20deg);
 }
 
 @media(max-width:768px){

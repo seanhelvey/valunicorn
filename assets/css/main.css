@@ -176,8 +176,8 @@ section#three {
     padding-right: 40px;
   }
 
-  #weather-vane {
-    margin: 15% auto;
+  #weather-vane-wrapper {
+    margin: 5% auto;
     width: 50%;
 }
 

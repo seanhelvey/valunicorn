@@ -94,14 +94,32 @@
 
       <div class="row" id="tools_row">
         <div class="col-sm-4">
+            <h3>Value Meter</h3>
+            <div class="row">
+              <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Meter Infos">More info</a>
+            </div>
+            <div id="thermo-wrapper">                               
+              <div id="thermo1" class="thermometer">
+                  <div class="track">
+                      <div class="goal">
+                          <div class="amount">13</div>
+                      </div>
+                      <div id="thermo_progress" class="progress">
+                          <div class="amount">12</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
           <h3>Price Forecast</h3>
           <div class="row">
             <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Price Forecast Infos">More info</a>
           </div>
           <div id="weather-vane-wrapper">
-            UP
+            Up
             <img id="weather-vane" class="img-responsive" src="assets/img/MyArrow.png"></img>            
-            DOWN
+            Down
           </div>
         </div>
         <div class="col-sm-4">
@@ -109,29 +127,10 @@
           <div class="row">
             <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Asset Allocation Infos">More info</a>
           </div>
-          <div id="gaugeChartWrapper">
+          <div id="allocationChartWrapper">
             <div class='chart'>
-              <div id='gaugeChart'></div>
+              <div id='allocationChart'></div>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-            <h3>Value Meter</h3>
-            <div class="row">
-              <a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="Meter Infos">More info</a>
-            </div>
-            <div id="thermo-wrapper">                              
-              <img id="good_bad_cropped" src="assets/img/goodbadcropped.png">
-              <div id="thermo1" class="thermometer">
-                  <div class="track">
-                      <div class="goal">
-                          <div class="amount">13</div>
-                      </div>
-                      <div id="thermo_progress" class="progress">
-                          <div class="amount">13</div>
-                      </div>
-                  </div>
-              </div>
           </div>
         </div>
       </div>
@@ -230,7 +229,7 @@
     </script>
     <script type="text/javascript" src="assets/js/thermometer.js"></script>
     <script type="text/javascript" src="assets/js/historicalChart.js"></script>
-    <script type="text/javascript" src="assets/js/gaugeChart.js"></script>
+    <script type="text/javascript" src="assets/js/allocationChart.js"></script>
     <script type="text/javascript" src="assets/js/modal.js"></script>
 
   </body>

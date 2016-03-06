@@ -47,10 +47,11 @@ body {
 }
 
 #thermo-wrapper {
-    padding: 10px 0px;
+    padding-top: 5%;
 }
 
 #historicalChart svg {
+    height: 100%;
     width: 105%;
     padding: 10px;
     background-color: white;

@@ -152,9 +152,11 @@ section#three {
 }
 
 #weather-vane-wrapper {
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 50%;  
-  margin: 30px 50px 0px 50px;
+  margin: 15% 15%;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 #weather-vane {
@@ -167,11 +169,11 @@ section#three {
   transform: rotate(45deg);
 }
 
-#gaugeChartWrapper {
-  margin-top: 18%;
+#allocationChartWrapper {
+  margin-top: 10%;
 }
 
-#gaugeChart .c3-axis-x .tick {
+#allocationChart .c3-axis-x .tick {
    display: none;
 }
 
@@ -189,7 +191,7 @@ section#three {
     width: 50%;
   }
 
-  #gaugeChartWrapper {
+  #allocationChartWrapper {
     margin: 5% auto;
     width: 80%;
   }  

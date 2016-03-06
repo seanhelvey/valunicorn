@@ -152,19 +152,27 @@ section#three {
 }
 
 #weather-vane-wrapper {
-  border: 3px solid #979797;
-  border-radius: 100px;  
-  margin: 30px 20px 0px 20px;
+  border: 2px solid black;
+  border-radius: 50%;  
+  margin: 30px 50px 0px 50px;
 }
 
 #weather-vane {
   margin: 15% auto;
-  width: 80%;
+  width: 60%;
   padding: 20px 10px;
   /* Rotate div */
-  -ms-transform: rotate(-20deg); /* IE 9 */
-  -webkit-transform: rotate(-20deg); /* Chrome, Safari, Opera */
-  transform: rotate(-20deg);
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+
+#gaugeChartWrapper {
+  margin-top: 18%;
+}
+
+#gaugeChart .c3-axis-x .tick {
+   display: none;
 }
 
 @media(max-width:768px){
@@ -179,6 +187,12 @@ section#three {
   #weather-vane-wrapper {
     margin: 5% auto;
     width: 50%;
+  }
+
+  #gaugeChartWrapper {
+    margin: 5% auto;
+    width: 80%;
+  }  
 }
 
 @media(min-width:768px){

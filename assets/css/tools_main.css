@@ -50,7 +50,7 @@ body {
     padding: 10px 0px;
 }
 
-#chart > svg {
+#historicalChart svg {
     width: 105%;
     padding: 10px;
     background-color: white;
@@ -224,4 +224,10 @@ padding-right: 40px;
 
 .chart * {
     font-size: 13px;
+}
+
+@media(max-width:768px){
+    #chart-wrapper {
+        width: 90%;
+    }
 }

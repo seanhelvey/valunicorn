@@ -15,7 +15,7 @@ var chart = c3.generate({
 	  y: {
 	  	max: 100,
 	    tick: {
-	      values: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+	      values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 	    }
 	  }
 	},
@@ -39,8 +39,8 @@ var chart = c3.generate({
 setTimeout(function () {
     chart.load({
         columns: [
-            ['Cash', 25],
-            ['Stock', 75]
+            ['Cash', 0],
+            ['Stock', 100]
         ]
     });
 }, 500);

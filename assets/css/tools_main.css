@@ -50,6 +50,22 @@ body {
     padding-top: 5%;
 }
 
+#good-text {
+    background-color: lightgreen;
+    height: 150px;
+    padding-top: 70px;
+    width: 30%;
+    display: inline-block;
+}
+
+#bad-text {
+    background-color: lightyellow;
+    height: 150px;
+    padding-top: 70px;
+    width: 30%;
+    display: inline-block;
+}
+
 #historicalChart svg {
     height: 100%;
     width: 105%;
@@ -221,6 +237,8 @@ padding-right: 40px;
 
 #chart-wrapper p {
     margin: 0;
+    background-color: white;
+    width: 105%;
 }
 
 .chart * {

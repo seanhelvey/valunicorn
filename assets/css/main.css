@@ -153,8 +153,8 @@ section#three {
 
 #weather-vane-wrapper {
   border: 1px solid black;
-  border-radius: 50%;  
-  margin: 15% 15%;
+  border-radius: 50px;  
+  margin: 15% 20%;
   font-size: 20px;
   font-weight: 300;
 }
@@ -188,7 +188,7 @@ section#three {
 
   #weather-vane-wrapper {
     margin: 5% auto;
-    width: 50%;
+    width: 70%;
   }
 
   #allocationChartWrapper {

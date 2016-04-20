@@ -153,7 +153,7 @@ section#three {
 
 #weather-vane-wrapper {
   border: 1px solid black;
-  border-radius: 50px;  
+  border-radius: 50px;
   margin: 15% 20%;
   font-size: 20px;
   font-weight: 300;
@@ -194,7 +194,7 @@ section#three {
   #allocationChartWrapper {
     margin: 5% auto;
     width: 80%;
-  }  
+  }
 }
 
 @media(min-width:768px){
@@ -208,4 +208,15 @@ section#three {
   h2 {
     font-size: 48px;
   }
+}
+
+#good, #bad, #current {
+    color: #337ab7;
+    text-decoration: none;
+
+}
+#good:hover, #bad:hover, #current:hover {
+    color: #23527c;
+    text-decoration: underline;
+    cursor: pointer; cursor: hand;
 }

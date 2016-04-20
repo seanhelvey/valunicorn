@@ -28,19 +28,19 @@ var chart = c3.generate({
     },
 	legend: {
 	  position: 'bottom'
-	},    
+	},
 	tooltip: {
 	  format: {
 	    title: function () { return 'Allocation' }
 	  }
-	}  
+	}
 });
 
 setTimeout(function () {
     chart.load({
         columns: [
-            ['Cash', 0],
-            ['Stock', 100]
+            ['Cash', 17],
+            ['Stock', 83]
         ]
     });
 }, 500);

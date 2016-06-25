@@ -80,7 +80,7 @@ body {
 
 #tools_row {
     margin: 0 auto;
-    text-align: center    
+    text-align: center
 }
 
 #good_bad_cropped {
@@ -249,4 +249,16 @@ padding-right: 40px;
     #chart-wrapper {
         width: 90%;
     }
+}
+
+.calculator-break {
+    padding-top: 50px;
+}
+
+input[type="text"]:disabled{
+    background-color:white;
+}
+
+.extra-margin {
+    margin-top: 10px;
 }

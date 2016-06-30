@@ -1,0 +1,54 @@
+var _user$project$MyCalculator$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		if (_p0.ctor === 'Increment') {
+			return model + 1;
+		} else {
+			return model - 1;
+		}
+	});
+var _user$project$MyCalculator$model = 0;
+var _user$project$MyCalculator$Decrement = {ctor: 'Decrement'};
+var _user$project$MyCalculator$Increment = {ctor: 'Increment'};
+var _user$project$MyCalculator$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$MyCalculator$Decrement)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('-')
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(model))
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$MyCalculator$Increment)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('+')
+					]))
+			]));
+};
+var _user$project$MyCalculator$main = {
+	main: _elm_lang$html$Html_App$beginnerProgram(
+		{model: _user$project$MyCalculator$model, view: _user$project$MyCalculator$view, update: _user$project$MyCalculator$update})
+};

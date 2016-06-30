@@ -7224,20 +7224,14 @@ var _user$project$MyThing$check = _elm_lang$core$Native_Platform.outgoingPort(
 	function (v) {
 		return v;
 	});
-var _user$project$MyThing$suggestions = _elm_lang$core$Native_Platform.incomingPort(
-	'suggestions',
-	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string));
+var _user$project$MyThing$suggestions = _elm_lang$core$Native_Platform.incomingPort('suggestions', _elm_lang$core$Json_Decode$string);
 var _user$project$MyThing$Model = F2(
 	function (a, b) {
 		return {word: a, suggestions: b};
 	});
 var _user$project$MyThing$init = {
 	ctor: '_Tuple2',
-	_0: A2(
-		_user$project$MyThing$Model,
-		'',
-		_elm_lang$core$Native_List.fromArray(
-			[])),
+	_0: A2(_user$project$MyThing$Model, '', ''),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$MyThing$update = F2(
@@ -7247,11 +7241,7 @@ var _user$project$MyThing$update = F2(
 			case 'Change':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(
-						_user$project$MyThing$Model,
-						_p0._0,
-						_elm_lang$core$Native_List.fromArray(
-							[])),
+					_0: A2(_user$project$MyThing$Model, _p0._0, ''),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Check':
@@ -7310,7 +7300,7 @@ var _user$project$MyThing$view = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html$text(
-						A2(_elm_lang$core$String$join, ', ', model.suggestions))
+						A2(_elm_lang$core$Basics_ops['++'], model.suggestions, model.suggestions))
 					]))
 			]));
 };

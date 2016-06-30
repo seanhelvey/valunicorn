@@ -95,9 +95,9 @@
 
           <div class="calculator">
 
-            <div class="calculator-inputs">
+            <div id="my-thing" class="calculator-inputs">
 
-              <div class="row">
+<!--               <div class="row">
 
                 <div class="col-sm-1"></div>
                 <div class="col-sm-3">
@@ -196,9 +196,8 @@
 
                 </div>
                 <div class="col-sm-1"></div>
-              </div>
+              </div> -->
 
-            <div id="my-thing"></div>
             <script src="assets/js/my-thing.js"></script>
             <script>
                 var node = document.getElementById('my-thing');
@@ -206,7 +205,7 @@
 
                 app.ports.check.subscribe(function(word) {
                     var caps = word.toUpperCase();
-                    app.ports.suggestions.send([caps]);
+                    app.ports.suggestions.send(caps);
                 });
 
             </script>

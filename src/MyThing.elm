@@ -20,12 +20,12 @@ main =
 
 type alias Model =
   { word : String
-  , suggestions : List String
+  , suggestions : String
   }
 
 init : (Model, Cmd Msg)
 init =
-  (Model "" [], Cmd.none)
+  (Model "" "", Cmd.none)
 
 
 -- UPDATE
@@ -33,7 +33,7 @@ init =
 type Msg
   = Change String
   | Check
-  | Suggest (List String)
+  | Suggest String
 
 
 port check : String -> Cmd msg
@@ -42,7 +42,7 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Change newWord ->
-      ( Model newWord [], Cmd.none )
+      ( Model newWord "", Cmd.none )
 
     Check ->
       ( model, check model.word )
@@ -53,7 +53,7 @@ update msg model =
 
 -- SUBSCRIPTIONS
 
-port suggestions : (List String -> msg) -> Sub msg
+port suggestions : (String -> msg) -> Sub msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -67,5 +67,5 @@ view model =
   div []
     [ input [ onInput Change ] []
     , button [ onClick Check ] [ text "Check" ]
-    , div [] [ text (String.join ", " model.suggestions) ]
+    , div [] [ text (model.suggestions ++ model.suggestions) ]
     ]

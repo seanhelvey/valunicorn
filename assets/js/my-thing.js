@@ -7225,35 +7225,41 @@ var _user$project$MyThing$check = _elm_lang$core$Native_Platform.outgoingPort(
 		return v;
 	});
 var _user$project$MyThing$suggestions = _elm_lang$core$Native_Platform.incomingPort('suggestions', _elm_lang$core$Json_Decode$string);
-var _user$project$MyThing$Model = F2(
-	function (a, b) {
-		return {word: a, suggestions: b};
+var _user$project$MyThing$Model = F3(
+	function (a, b, c) {
+		return {input1: a, input2: b, suggestions: c};
 	});
 var _user$project$MyThing$init = {
 	ctor: '_Tuple2',
-	_0: A2(_user$project$MyThing$Model, '', ''),
+	_0: A3(_user$project$MyThing$Model, '', '', ''),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$MyThing$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
-			case 'Change':
+			case 'SetInput1':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$MyThing$Model, _p0._0, ''),
+					_0: A3(_user$project$MyThing$Model, _p0._0, '', ''),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetInput2':
+				return {
+					ctor: '_Tuple2',
+					_0: A3(_user$project$MyThing$Model, '', _p0._0, ''),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Check':
 				return {
 					ctor: '_Tuple2',
 					_0: model,
-					_1: _user$project$MyThing$check(model.word)
+					_1: _user$project$MyThing$check(model.input1)
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$MyThing$Model, model.word, _p0._0),
+					_0: A3(_user$project$MyThing$Model, model.input1, '', _p0._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -7265,8 +7271,11 @@ var _user$project$MyThing$subscriptions = function (model) {
 	return _user$project$MyThing$suggestions(_user$project$MyThing$Suggest);
 };
 var _user$project$MyThing$Check = {ctor: 'Check'};
-var _user$project$MyThing$Change = function (a) {
-	return {ctor: 'Change', _0: a};
+var _user$project$MyThing$SetInput2 = function (a) {
+	return {ctor: 'SetInput2', _0: a};
+};
+var _user$project$MyThing$SetInput1 = function (a) {
+	return {ctor: 'SetInput1', _0: a};
 };
 var _user$project$MyThing$view = function (model) {
 	return A2(
@@ -7279,8 +7288,14 @@ var _user$project$MyThing$view = function (model) {
 				_elm_lang$html$Html$input,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Events$onInput(_user$project$MyThing$Change)
+						_elm_lang$html$Html_Events$onInput(_user$project$MyThing$SetInput1)
 					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$input,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
 				A2(

@@ -19,14 +19,14 @@ main =
 -- MODEL
 
 type alias Model =
-  { input1 : String,
-    input2 : String,
+  { input1 : Float,
+    input2 : Float,
     suggestions : String
   }
 
 init : (Model, Cmd Msg)
 init =
-  (Model "" "" "", Cmd.none)
+  (Model 0.0 0.0 "", Cmd.none)
 
 
 -- UPDATE
@@ -38,19 +38,19 @@ type Msg
   | Suggest String
 
 
-port check : String -> Cmd msg
+port check : Float -> Cmd msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    SetInput1 newWord ->
-      ( { model | input1 = newWord }, Cmd.none )
+    SetInput1 newInput ->
+      ( { model | input1 = Result.withDefault 0 (String.toFloat newInput) }, Cmd.none )
 
-    SetInput2 newWord ->
-      ( { model | input2 = newWord }, Cmd.none )
+    SetInput2 newInput ->
+      ( { model | input2 = Result.withDefault 0 (String.toFloat newInput) }, Cmd.none )
 
     Check ->
-      ( model, check (model.input1 ++ model.input2) )
+      ( model, check (model.input1 + model.input2) )
 
     Suggest newSuggestions ->
       ( Model model.input1 model.input2 newSuggestions, Cmd.none )

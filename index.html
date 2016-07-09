@@ -203,9 +203,9 @@
                 var node = document.getElementById('my-thing');
                 var app = Elm.MyThing.embed(node);
 
-                app.ports.check.subscribe(function(word) {
-                    var caps = word.toUpperCase();
-                    app.ports.suggestions.send(caps);
+                app.ports.check.subscribe(function(number) {
+                    //var caps = word.toUpperCase();
+                    app.ports.suggestions.send(String(number));
                 });
 
             </script>

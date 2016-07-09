@@ -44,16 +44,16 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     SetInput1 newWord ->
-      ( Model newWord "" "", Cmd.none )
+      ( { model | input1 = newWord }, Cmd.none )
 
     SetInput2 newWord ->
-      ( Model "" newWord "", Cmd.none )
+      ( { model | input2 = newWord }, Cmd.none )
 
     Check ->
-      ( model, check model.input1 )
+      ( model, check (model.input1 ++ model.input2) )
 
     Suggest newSuggestions ->
-      ( Model model.input1 "" newSuggestions, Cmd.none )
+      ( Model model.input1 model.input2 newSuggestions, Cmd.none )
 
 
 -- SUBSCRIPTIONS
@@ -71,7 +71,7 @@ view : Model -> Html Msg
 view model =
   div [] [
     input [ onInput SetInput1 ] []
-    , input [] []
+    , input [ onInput SetInput2 ] []
     , button [ onClick Check ] [ text "Check" ]
-    , div [] [ text (model.suggestions ++ model.suggestions) ]
+    , div [] [ text (model.suggestions) ]
   ]

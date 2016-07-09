@@ -1,6 +1,3 @@
+var _user$project$Repl$x = 2;
 var _user$project$Repl$t_s_o_l = {ctor: '_Tuple0'};
-var _user$project$Repl$steve = {name: 'Jobs'};
-var _user$project$Repl$woz = _elm_lang$core$Native_Utils.update(
-	_user$project$Repl$steve,
-	{name: 'Wozniak'});
-var _user$project$Repl$d_e_l_t_r_o_n_3_0_3_0 = _user$project$Repl$woz;
+var _user$project$Repl$d_e_l_t_r_o_n_3_0_3_0 = _user$project$Repl$x;

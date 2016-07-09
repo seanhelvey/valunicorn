@@ -7241,25 +7241,30 @@ var _user$project$MyThing$update = F2(
 			case 'SetInput1':
 				return {
 					ctor: '_Tuple2',
-					_0: A3(_user$project$MyThing$Model, _p0._0, '', ''),
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{input1: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'SetInput2':
 				return {
 					ctor: '_Tuple2',
-					_0: A3(_user$project$MyThing$Model, '', _p0._0, ''),
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{input2: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Check':
 				return {
 					ctor: '_Tuple2',
 					_0: model,
-					_1: _user$project$MyThing$check(model.input1)
+					_1: _user$project$MyThing$check(
+						A2(_elm_lang$core$Basics_ops['++'], model.input1, model.input2))
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A3(_user$project$MyThing$Model, model.input1, '', _p0._0),
+					_0: A3(_user$project$MyThing$Model, model.input1, model.input2, _p0._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -7295,7 +7300,9 @@ var _user$project$MyThing$view = function (model) {
 				A2(
 				_elm_lang$html$Html$input,
 				_elm_lang$core$Native_List.fromArray(
-					[]),
+					[
+						_elm_lang$html$Html_Events$onInput(_user$project$MyThing$SetInput2)
+					]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
 				A2(
@@ -7314,8 +7321,7 @@ var _user$project$MyThing$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text(
-						A2(_elm_lang$core$Basics_ops['++'], model.suggestions, model.suggestions))
+						_elm_lang$html$Html$text(model.suggestions)
 					]))
 			]));
 };

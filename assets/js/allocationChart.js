@@ -36,13 +36,13 @@ var chart = c3.generate({
 	}
 });
 
-// setTimeout(function () {
-//     chart.load({
-//         columns: [
-//             ['Cash', 33],
-//             ['Stock', 67]
-//         ]
-//     });
-// }, 500);
+setTimeout(function () {
+    chart.load({
+        columns: [
+            ['Cash', 33],
+            ['Stock', 67]
+        ]
+    });
+}, 500);
 
 $("#allocationChart").append(chart.element);

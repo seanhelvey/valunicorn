@@ -39,8 +39,8 @@ var chart = c3.generate({
 setTimeout(function () {
     chart.load({
         columns: [
-            ['Cash', 33],
-            ['Stock', 67]
+            ['Cash', 25],
+            ['Stock', 75]
         ]
     });
 }, 500);

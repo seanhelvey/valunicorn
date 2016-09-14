@@ -1,0 +1,627 @@
+var _user$project$Calculator$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'SetPurchasePrice':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						purchasePrice: A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toFloat(_p0._0))
+					});
+			case 'SetHoldingPeriod':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						holdingPeriod: A2(
+							_elm_lang$core$Result$withDefault,
+							0,
+							_elm_lang$core$String$toFloat(_p0._0))
+					});
+			default:
+				var build = F5(
+					function (x, acc, d, g, n) {
+						build:
+						while (true) {
+							var x = x + 1;
+							if (_elm_lang$core$Native_Utils.eq(n, 0) || (_elm_lang$core$Native_Utils.cmp(x, n) > 0)) {
+								return acc + d;
+							} else {
+								if (_elm_lang$core$Native_Utils.eq(n, 1)) {
+									return d * (1 + g);
+								} else {
+									var curDiv = d * (1 + g);
+									var acc = acc + d;
+									if (_elm_lang$core$Native_Utils.eq(x, 1)) {
+										var _v1 = x,
+											_v2 = 0,
+											_v3 = curDiv,
+											_v4 = g,
+											_v5 = n;
+										x = _v1;
+										acc = _v2;
+										d = _v3;
+										g = _v4;
+										n = _v5;
+										continue build;
+									} else {
+										var _v6 = x,
+											_v7 = acc,
+											_v8 = curDiv,
+											_v9 = g,
+											_v10 = n;
+										x = _v6;
+										acc = _v7;
+										d = _v8;
+										g = _v9;
+										n = _v10;
+										continue build;
+									}
+								}
+							}
+						}
+					});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						result: Math.pow(
+							(A5(build, 0.0, 0.0, model.dividend, model.growth, model.holdingPeriod) / model.purchasePrice) + 1,
+							1 / model.holdingPeriod) - 1
+					});
+		}
+	});
+var _user$project$Calculator$model = {name: 0.0, $yield: 0.0, growth: 8.0e-2, dividend: 2.65, purchasePrice: 0.0, holdingPeriod: 0.0, futureValue: 0.0, result: 0.0};
+var _user$project$Calculator$yScale = function (y) {
+	return 600 - (y * 3);
+};
+var _user$project$Calculator$xScale = function (x) {
+	return 20 + (x * 20);
+};
+var _user$project$Calculator$data = _elm_lang$core$Native_List.fromArray(
+	[
+		{
+		ctor: '_Tuple3',
+		_0: 1,
+		_1: 22.2,
+		_2: _elm_lang$core$Native_List.fromArray(
+			[])
+	},
+		{
+		ctor: '_Tuple3',
+		_0: 2,
+		_1: 34,
+		_2: _elm_lang$core$Native_List.fromArray(
+			[])
+	},
+		{
+		ctor: '_Tuple3',
+		_0: 3,
+		_1: 56,
+		_2: _elm_lang$core$Native_List.fromArray(
+			[
+				_wuct$elm_charts$BarChart$color('yellowgreen')
+			])
+	},
+		{
+		ctor: '_Tuple3',
+		_0: 4,
+		_1: 62,
+		_2: _elm_lang$core$Native_List.fromArray(
+			[])
+	},
+		{
+		ctor: '_Tuple3',
+		_0: 5,
+		_1: 77,
+		_2: _elm_lang$core$Native_List.fromArray(
+			[])
+	}
+	]);
+var _user$project$Calculator$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {name: a, $yield: b, growth: c, dividend: d, purchasePrice: e, holdingPeriod: f, futureValue: g, result: h};
+	});
+var _user$project$Calculator$Calculate = {ctor: 'Calculate'};
+var _user$project$Calculator$SetHoldingPeriod = function (a) {
+	return {ctor: 'SetHoldingPeriod', _0: a};
+};
+var _user$project$Calculator$SetPurchasePrice = function (a) {
+	return {ctor: 'SetPurchasePrice', _0: a};
+};
+var _user$project$Calculator$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('calculator')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$svg$Svg$svg,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$svg$Svg_Attributes$width('1000'),
+								_elm_lang$svg$Svg_Attributes$height('600')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_wuct$elm_charts$LineChart$lineChart,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_wuct$elm_charts$LineChart$color('#7E94C7')
+									]),
+								{
+									data: _user$project$Calculator$data,
+									xScale: _user$project$Calculator$xScale,
+									yScale: function (y) {
+										return 500 - (y * 3);
+									}
+								})
+							]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('row')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('col-sm-1')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('col-sm-3')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$h3,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Company')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$select,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$class('form-control center-block')
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[
+														A2(
+														_elm_lang$html$Html$option,
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html_Attributes$value('volvo')
+															]),
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html$text('PG')
+															])),
+														A2(
+														_elm_lang$html$Html$option,
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html_Attributes$value('saab')
+															]),
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html$text('KO')
+															])),
+														A2(
+														_elm_lang$html$Html$option,
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html_Attributes$value('mercedes')
+															]),
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html$text('JNJ')
+															])),
+														A2(
+														_elm_lang$html$Html$option,
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html_Attributes$value('audi')
+															]),
+														_elm_lang$core$Native_List.fromArray(
+															[
+																_elm_lang$html$Html$text('WMT')
+															]))
+													]))
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-7')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Current Yield')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('3%')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-3')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-7')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Dividend Growth')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('8%')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-3')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('col-sm-4')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$h3,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Inputs')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Purchase Price')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$input,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$id('puchasePrice'),
+														_elm_lang$html$Html_Attributes$class('form-control'),
+														_elm_lang$html$Html_Events$onInput(_user$project$Calculator$SetPurchasePrice),
+														_elm_lang$html$Html_Events$onBlur(_user$project$Calculator$Calculate)
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[]))
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Holding Period')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-4 col-sm-4')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												A2(
+												_elm_lang$html$Html$input,
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$html$Html_Attributes$id('holdingPeriod'),
+														_elm_lang$html$Html_Attributes$class('form-control'),
+														_elm_lang$html$Html_Events$onInput(_user$project$Calculator$SetHoldingPeriod),
+														_elm_lang$html$Html_Events$onBlur(_user$project$Calculator$Calculate)
+													]),
+												_elm_lang$core$Native_List.fromArray(
+													[]))
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('col-sm-3')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$h3,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Outputs')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-6')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Annual Return')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-3')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text(
+												_elm_lang$core$Basics$toString(model.result))
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('row extra-margin')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-6')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Total Return')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-3')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('80%')
+											])),
+										A2(
+										_elm_lang$html$Html$div,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-2')
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('col-sm-1')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					]))
+			]));
+};
+var _user$project$Calculator$main = {
+	main: _elm_lang$html$Html_App$beginnerProgram(
+		{model: _user$project$Calculator$model, view: _user$project$Calculator$view, update: _user$project$Calculator$update})
+};

@@ -1,0 +1,54 @@
+var _wuct$elm_charts$BarChart$color = _elm_lang$svg$Svg_Attributes$stroke;
+var _wuct$elm_charts$BarChart$width = _elm_lang$svg$Svg_Attributes$strokeWidth;
+var _wuct$elm_charts$BarChart$bar = F2(
+	function (attrs, _p0) {
+		var _p1 = _p0;
+		var _p2 = _p1.x;
+		return A2(
+			_elm_lang$svg$Svg$line,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$x1(
+						_elm_lang$core$Basics$toString(_p2)),
+						_elm_lang$svg$Svg_Attributes$x2(
+						_elm_lang$core$Basics$toString(_p2)),
+						_elm_lang$svg$Svg_Attributes$y1(
+						_elm_lang$core$Basics$toString(_p1.y1)),
+						_elm_lang$svg$Svg_Attributes$y2(
+						_elm_lang$core$Basics$toString(_p1.y2)),
+						_wuct$elm_charts$BarChart$width('10'),
+						_wuct$elm_charts$BarChart$color('grey')
+					]),
+				attrs),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	});
+var _wuct$elm_charts$BarChart$barChart = F2(
+	function (attrs, _p3) {
+		var _p4 = _p3;
+		var _p7 = _p4.yScale;
+		return A2(
+			_elm_lang$svg$Svg$g,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$List$map,
+				function (_p5) {
+					var _p6 = _p5;
+					return A2(
+						_wuct$elm_charts$BarChart$bar,
+						A2(_elm_lang$core$Basics_ops['++'], attrs, _p6._2),
+						{
+							x: _p4.xScale(_p6._0),
+							y1: _p7(0),
+							y2: _p7(_p6._1)
+						});
+				},
+				_p4.data));
+	});
+var _wuct$elm_charts$BarChart$BarProps = F3(
+	function (a, b, c) {
+		return {x: a, y1: b, y2: c};
+	});

@@ -1,0 +1,4 @@
+var _wuct$elm_charts$Chart$ChartProps = F3(
+	function (a, b, c) {
+		return {data: a, xScale: b, yScale: c};
+	});

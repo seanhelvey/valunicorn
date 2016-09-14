@@ -1,0 +1,71 @@
+var _wuct$elm_charts$LineChart$transformDataToCoordinatesByScale = F2(
+	function (xScale, yScale) {
+		return _elm_lang$core$List$map(
+			function (_p0) {
+				var _p1 = _p0;
+				return {
+					ctor: '_Tuple2',
+					_0: xScale(_p1._0),
+					_1: yScale(_p1._1)
+				};
+			});
+	});
+var _wuct$elm_charts$LineChart$creatPath = function (_p2) {
+	return A2(
+		_elm_lang$core$String$dropRight,
+		1,
+		A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (_p3, path) {
+					var _p4 = _p3;
+					return A2(
+						_elm_lang$core$Basics_ops['++'],
+						path,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_elm_lang$core$Basics$toString(_p4._0),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								',',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(_p4._1),
+									'L'))));
+				}),
+			'M',
+			_p2));
+};
+var _wuct$elm_charts$LineChart$convertDataToPathByScale = F3(
+	function (xScale, yScale, data) {
+		return _wuct$elm_charts$LineChart$creatPath(
+			A3(_wuct$elm_charts$LineChart$transformDataToCoordinatesByScale, xScale, yScale, data));
+	});
+var _wuct$elm_charts$LineChart$color = _elm_lang$svg$Svg_Attributes$stroke;
+var _wuct$elm_charts$LineChart$width = _elm_lang$svg$Svg_Attributes$strokeWidth;
+var _wuct$elm_charts$LineChart$lineChart = F2(
+	function (attrs, _p5) {
+		var _p6 = _p5;
+		return A2(
+			_elm_lang$svg$Svg$g,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$svg$Svg$path,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$svg$Svg_Attributes$d(
+								A3(_wuct$elm_charts$LineChart$convertDataToPathByScale, _p6.xScale, _p6.yScale, _p6.data)),
+								_elm_lang$svg$Svg_Attributes$fill('transparent'),
+								_wuct$elm_charts$LineChart$width('2'),
+								_wuct$elm_charts$LineChart$color('grey')
+							]),
+						attrs),
+					_elm_lang$core$Native_List.fromArray(
+						[]))
+				]));
+	});

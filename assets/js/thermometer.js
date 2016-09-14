@@ -46,6 +46,6 @@
     $(document).ready(function(){
 
         //call without the parameters to have it read from the DOM
-        thermometer("thermo1");
+        //thermometer("thermo1");
 
     });

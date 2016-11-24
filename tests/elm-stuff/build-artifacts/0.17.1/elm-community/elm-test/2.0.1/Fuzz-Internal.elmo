@@ -1,3 +1,0 @@
-var _elm_community$elm_test$Fuzz_Internal$Fuzzer = function (a) {
-	return {ctor: 'Fuzzer', _0: a};
-};

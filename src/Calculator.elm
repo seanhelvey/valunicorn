@@ -1,7 +1,6 @@
 port module Calculator exposing (..)
 
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
@@ -165,13 +164,13 @@ view model =
         , div [ class "row extra-margin" ]
           [
             div [ attribute "aria-label" "...", class "btn-group btn-group-xs", attribute "role" "group", onClick Calculate]
-                [ button [ class "btn btn-default", type' "button", onClick (SelectCompany companyPG)]
+                [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
                     [ text "PG" ]
-                , button [ class "btn btn-default", type' "button", onClick (SelectCompany companyKO)]
+                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
                     [ text "KO" ]
-                , button [ class "btn btn-default", type' "button", onClick (SelectCompany companyWMT)]
+                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT)]
                     [ text "WMT" ]
-                , button [ class "btn btn-default", type' "button", onClick (SelectCompany companyJNJ)]
+                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ)]
                     [ text "JNJ" ]
                 ]
           ]

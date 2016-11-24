@@ -5,7 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
 import Debug exposing (log)
-
+import Chart exposing (..)
 
 main =
   Html.beginnerProgram
@@ -14,6 +14,18 @@ main =
     , update = update
     }
 
+
+data =
+    [ ( 5, "Alpha" )
+    , ( 10, "Beta" )
+    , ( 5, "Gamma is a super long legend entry that will never fit in the area at all" )
+    , ( 2, "Delta" )
+    , ( 6, "Epsilon" )
+    , ( 1, "Lamda" )
+    , ( 1, "Omega" )
+    , ( 20, "zeta" )
+    , ( 1, "Phi" )
+    ]
 
 -- MODEL
 
@@ -154,26 +166,30 @@ update msg model =
 view : Model -> Html Msg
 view model =
   div [ class "calculator" ]
-    [ div [] [
-      h2 [] [ Html.text model.company.fullName ]
+    [ 
+      div [] [
+      h2 [] [ Html.text model.company.fullName ],
+      div [ class "row extra-margin" ]
+        [
+          div [ attribute "aria-label" "...", class "btn-group", attribute "role" "group", onClick Calculate]
+              [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
+                  [ text "PG" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
+                  [ text "KO" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT)]
+                  [ text "WMT" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ)]
+                  [ text "JNJ" ]
+              ]
+        ]
+      ,
+      lChart data
+        |> toHtml      
     ],
       div [ class "row" ]
       [ div [ class "col-sm-4" ]
         [ h3 []
           [ Html.text "Company" ]
-        , div [ class "row extra-margin" ]
-          [
-            div [ attribute "aria-label" "...", class "btn-group btn-group-xs", attribute "role" "group", onClick Calculate]
-                [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
-                    [ text "PG" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
-                    [ text "KO" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT)]
-                    [ text "WMT" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ)]
-                    [ text "JNJ" ]
-                ]
-          ]
         , div [ class "row extra-margin" ]
           [ div [ class "col-xs-2 col-sm-1" ]
             []

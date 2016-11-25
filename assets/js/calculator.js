@@ -12545,47 +12545,33 @@ var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart S
 var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
 var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.66};
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
-var _user$project$Calculator$initialModel = {company: _user$project$Calculator$companyDefault, holdingPeriod: 10.0, futureValue: 0.0, annualReturn: 0.0, totalReturn: 0.0};
-var _user$project$Calculator$data = {
-	ctor: '::',
-	_0: {ctor: '_Tuple2', _0: 5, _1: 'Alpha'},
-	_1: {
+var _user$project$Calculator$initialModel = {
+	company: _user$project$Calculator$companyDefault,
+	holdingPeriod: 10.0,
+	futureValue: 0.0,
+	annualReturn: 0.0,
+	totalReturn: 0.0,
+	payments: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 10, _1: 'Beta'},
+		_0: {ctor: '_Tuple2', _0: 1, _1: ''},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 5, _1: 'Gamma is a super long legend entry that will never fit in the area at all'},
+			_0: {ctor: '_Tuple2', _0: 2, _1: ''},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 2, _1: 'Delta'},
+				_0: {ctor: '_Tuple2', _0: 3, _1: ''},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 6, _1: 'Epsilon'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 1, _1: 'Lamda'},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 1, _1: 'Omega'},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 20, _1: 'zeta'},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 1, _1: 'Phi'},
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
+					_0: {ctor: '_Tuple2', _0: 4, _1: ''},
+					_1: {ctor: '[]'}
 				}
 			}
 		}
 	}
 };
-var _user$project$Calculator$Model = F5(
-	function (a, b, c, d, e) {
-		return {company: a, holdingPeriod: b, futureValue: c, annualReturn: d, totalReturn: e};
+var _user$project$Calculator$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {company: a, holdingPeriod: b, futureValue: c, annualReturn: d, totalReturn: e, payments: f};
 	});
 var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
@@ -12807,7 +12793,7 @@ var _user$project$Calculator$view = function (model) {
 						_1: {
 							ctor: '::',
 							_0: _simonh1000$elm_charts$Chart$toHtml(
-								_simonh1000$elm_charts$Chart$lChart(_user$project$Calculator$data)),
+								_simonh1000$elm_charts$Chart$lChart(model.payments)),
 							_1: {ctor: '[]'}
 						}
 					}

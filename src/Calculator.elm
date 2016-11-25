@@ -14,19 +14,6 @@ main =
     , update = update
     }
 
-
-data =
-    [ ( 5, "Alpha" )
-    , ( 10, "Beta" )
-    , ( 5, "Gamma is a super long legend entry that will never fit in the area at all" )
-    , ( 2, "Delta" )
-    , ( 6, "Epsilon" )
-    , ( 1, "Lamda" )
-    , ( 1, "Omega" )
-    , ( 20, "zeta" )
-    , ( 1, "Phi" )
-    ]
-
 -- MODEL
 
 type alias Model =
@@ -35,6 +22,7 @@ type alias Model =
   , futureValue : Float
   , annualReturn : Float
   , totalReturn : Float
+  , payments : List (Float, String)
   }
 
 type alias Company =
@@ -52,6 +40,12 @@ initialModel =
   , futureValue = 0.0
   , annualReturn = 0.0
   , totalReturn = 0.0
+  , payments = 
+    [ (1, "a")
+    , (2, "b")
+    , (3, "c")
+    , (4, "d")
+    ]  
   }
 
 companyDefault : Company
@@ -183,7 +177,8 @@ view model =
               ]
         ]
       ,
-      lChart data
+      lChart model.payments
+        |> addValueToLabel
         |> toHtml      
     ],
       div [ class "row" ]

@@ -8256,6 +8256,9 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _user$project$Calculator$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
 var _user$project$Calculator$futureValue = F5(
 	function (x, acc, d, g, n) {
 		futureValue:
@@ -8311,6 +8314,12 @@ var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Co
 var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.66};
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
 var _user$project$Calculator$initialModel = {company: _user$project$Calculator$companyDefault, holdingPeriod: 10.0, futureValue: 0.0, annualReturn: 0.0, totalReturn: 0.0};
+var _user$project$Calculator$init = {ctor: '_Tuple2', _0: _user$project$Calculator$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Calculator$check = _elm_lang$core$Native_Platform.outgoingPort(
+	'check',
+	function (v) {
+		return v;
+	});
 var _user$project$Calculator$Model = F5(
 	function (a, b, c, d, e) {
 		return {company: a, holdingPeriod: b, futureValue: c, annualReturn: d, totalReturn: e};
@@ -8319,6 +8328,7 @@ var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
 		return {$yield: a, fullName: b, purchasePrice: c, growth: d, dividend: e};
 	});
+var _user$project$Calculator$Check = {ctor: 'Check'};
 var _user$project$Calculator$Calculate = {ctor: 'Calculate'};
 var _user$project$Calculator$update = F2(
 	function (msg, model) {
@@ -8358,16 +8368,28 @@ var _user$project$Calculator$update = F2(
 					model = _v14;
 					continue update;
 				case 'SelectCompany':
-					return _elm_lang$core$Native_Utils.update(
+					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{company: _p0._0});
-				default:
-					return _elm_lang$core$Native_Utils.update(
+					return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
+				case 'Calculate':
+					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{
 							annualReturn: A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice),
 							totalReturn: A6(_user$project$Calculator$totalReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice)
 						});
+					var _v15 = _user$project$Calculator$Check,
+						_v16 = newModel;
+					msg = _v15;
+					model = _v16;
+					continue update;
+				default:
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _user$project$Calculator$check('whoa')
+					};
 			}
 		}
 	});
@@ -8403,7 +8425,137 @@ var _user$project$Calculator$view = function (model) {
 							_0: _elm_lang$html$Html$text(model.company.fullName),
 							_1: {ctor: '[]'}
 						}),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('row extra-margin'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: A2(_elm_lang$html$Html_Attributes$attribute, 'aria-label', '...'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('btn-group btn-group'),
+											_1: {
+												ctor: '::',
+												_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'group'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onClick(_user$project$Calculator$Calculate),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$type_('button'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Events$onClick(
+															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyPG)),
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('PG'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$button,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$type_('button'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onClick(
+																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyKO)),
+															_1: {ctor: '[]'}
+														}
+													}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('KO'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$button,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$type_('button'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onClick(
+																	_user$project$Calculator$SelectCompany(_user$project$Calculator$companyWMT)),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('WMT'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$button,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$type_('button'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Events$onClick(
+																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyJNJ)),
+																	_1: {ctor: '[]'}
+																}
+															}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('JNJ'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
 				}),
 			_1: {
 				ctor: '::',
@@ -8448,119 +8600,59 @@ var _user$project$Calculator$view = function (model) {
 												_elm_lang$html$Html$div,
 												{
 													ctor: '::',
-													_0: A2(_elm_lang$html$Html_Attributes$attribute, 'aria-label', '...'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('btn-group btn-group-xs'),
-														_1: {
-															ctor: '::',
-															_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'group'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Events$onClick(_user$project$Calculator$Calculate),
-																_1: {ctor: '[]'}
-															}
-														}
-													}
+													_0: _elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1'),
+													_1: {ctor: '[]'}
 												},
-												{
+												{ctor: '[]'}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-7'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Current Yield'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
 													ctor: '::',
 													_0: A2(
-														_elm_lang$html$Html$button,
+														_elm_lang$html$Html$div,
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$type_('button'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onClick(
-																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyPG)),
-																	_1: {ctor: '[]'}
-																}
-															}
+															_0: _elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1'),
+															_1: {ctor: '[]'}
 														},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('PG'),
+															_0: _elm_lang$html$Html$text(
+																A2(
+																	_elm_lang$core$Basics_ops['++'],
+																	A2(
+																		_elm_lang$core$String$left,
+																		4,
+																		_elm_lang$core$Basics$toString(model.company.$yield * 100)),
+																	'%')),
 															_1: {ctor: '[]'}
 														}),
 													_1: {
 														ctor: '::',
 														_0: A2(
-															_elm_lang$html$Html$button,
+															_elm_lang$html$Html$div,
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$type_('button'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onClick(
-																			_user$project$Calculator$SelectCompany(_user$project$Calculator$companyKO)),
-																		_1: {ctor: '[]'}
-																	}
-																}
+																_0: _elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-3'),
+																_1: {ctor: '[]'}
 															},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('KO'),
-																_1: {ctor: '[]'}
-															}),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$button,
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$type_('button'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Events$onClick(
-																				_user$project$Calculator$SelectCompany(_user$project$Calculator$companyWMT)),
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('WMT'),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$button,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Attributes$type_('button'),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$html$Html_Events$onClick(
-																					_user$project$Calculator$SelectCompany(_user$project$Calculator$companyJNJ)),
-																				_1: {ctor: '[]'}
-																			}
-																		}
-																	},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('JNJ'),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {ctor: '[]'}
-															}
-														}
+															{ctor: '[]'}),
+														_1: {ctor: '[]'}
 													}
-												}),
-											_1: {ctor: '[]'}
+												}
+											}
 										}),
 									_1: {
 										ctor: '::',
@@ -8592,7 +8684,7 @@ var _user$project$Calculator$view = function (model) {
 														},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('Current Yield'),
+															_0: _elm_lang$html$Html$text('Dividend Growth'),
 															_1: {ctor: '[]'}
 														}),
 													_1: {
@@ -8612,7 +8704,7 @@ var _user$project$Calculator$view = function (model) {
 																		A2(
 																			_elm_lang$core$String$left,
 																			4,
-																			_elm_lang$core$Basics$toString(model.company.$yield * 100)),
+																			_elm_lang$core$Basics$toString(model.company.growth * 100)),
 																		'%')),
 																_1: {ctor: '[]'}
 															}),
@@ -8631,77 +8723,7 @@ var _user$project$Calculator$view = function (model) {
 													}
 												}
 											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$div,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$class('row extra-margin'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$div,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1'),
-															_1: {ctor: '[]'}
-														},
-														{ctor: '[]'}),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$div,
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$class('col-xs-5 col-sm-7'),
-																_1: {ctor: '[]'}
-															},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('Dividend Growth'),
-																_1: {ctor: '[]'}
-															}),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$div,
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$class('col-xs-2 col-sm-1'),
-																	_1: {ctor: '[]'}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(
-																		A2(
-																			_elm_lang$core$Basics_ops['++'],
-																			A2(
-																				_elm_lang$core$String$left,
-																				4,
-																				_elm_lang$core$Basics$toString(model.company.growth * 100)),
-																			'%')),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$div,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$class('col-xs-3 col-sm-3'),
-																		_1: {ctor: '[]'}
-																	},
-																	{ctor: '[]'}),
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												}),
-											_1: {ctor: '[]'}
-										}
+										_1: {ctor: '[]'}
 									}
 								}
 							}),
@@ -9069,8 +9091,8 @@ var _user$project$Calculator$view = function (model) {
 			}
 		});
 };
-var _user$project$Calculator$main = _elm_lang$html$Html$beginnerProgram(
-	{model: _user$project$Calculator$initialModel, view: _user$project$Calculator$view, update: _user$project$Calculator$update})();
+var _user$project$Calculator$main = _elm_lang$html$Html$program(
+	{init: _user$project$Calculator$init, view: _user$project$Calculator$view, update: _user$project$Calculator$update, subscriptions: _user$project$Calculator$subscriptions})();
 
 var Elm = {};
 Elm['Calculator'] = Elm['Calculator'] || {};

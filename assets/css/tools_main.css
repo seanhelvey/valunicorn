@@ -40,8 +40,15 @@ body {
     margin-bottom: 5px;
 }*/
 
-#chart-wrapper {
+.chart-wrapper {
     width: 60%;
+    clear: both;
+    margin: 0 auto;
+}
+
+.calculator-chart-wrapper {
+    padding-top: 20px;
+    width: 80%;
     clear: both;
     margin: 0 auto;
 }

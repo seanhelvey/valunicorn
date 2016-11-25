@@ -8,10 +8,11 @@ import Debug exposing (log)
 
 
 main =
-  Html.beginnerProgram
-    { model = initialModel
+  Html.program
+    { init = init
     , view = view
     , update = update
+    , subscriptions = subscriptions
     }
 
 
@@ -32,6 +33,10 @@ type alias Company =
   , growth : Float
   , dividend : Float
   }  
+
+init: (Model, Cmd Msg)
+init = 
+  (initialModel, Cmd.none)
 
 initialModel : Model
 initialModel = 
@@ -117,8 +122,12 @@ type Msg
   | SetHoldingPeriod String
   | SelectCompany Company
   | Calculate
+  | Check
 
-update : Msg -> Model -> Model
+
+port check : String -> Cmd msg
+
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     SetPurchasePrice newPrice ->
@@ -139,15 +148,29 @@ update msg model =
         update Calculate newModel
 
     SelectCompany newCompany ->
-      { model | company = newCompany }
+      let
+        newModel = { model | company = newCompany }
+      in
+        ( newModel, Cmd.none)
 
     Calculate ->
-      { 
-        model 
-        | annualReturn = (rateOfReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-        , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-      }
+      let
+        newModel = 
+          { 
+            model 
+            | annualReturn = (rateOfReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
+            , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
+          }
+      in
+        update Check newModel
 
+    Check ->
+      ( model, check "whoa" )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Sub.none
 
 -- VIEW
 
@@ -156,24 +179,23 @@ view model =
   div [ class "calculator" ]
     [ div [] [
       h2 [] [ Html.text model.company.fullName ]
-    ],
-      div [ class "row" ]
+      , div [ class "row extra-margin" ]
+        [
+          div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick Calculate]
+              [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
+                  [ text "PG" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
+                  [ text "KO" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT)]
+                  [ text "WMT" ]
+              , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ)]
+                  [ text "JNJ" ]
+              ]
+        ]
+      ], div [ class "row" ]
       [ div [ class "col-sm-4" ]
         [ h3 []
           [ Html.text "Company" ]
-        , div [ class "row extra-margin" ]
-          [
-            div [ attribute "aria-label" "...", class "btn-group btn-group-xs", attribute "role" "group", onClick Calculate]
-                [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
-                    [ text "PG" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
-                    [ text "KO" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT)]
-                    [ text "WMT" ]
-                , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ)]
-                    [ text "JNJ" ]
-                ]
-          ]
         , div [ class "row extra-margin" ]
           [ div [ class "col-xs-2 col-sm-1" ]
             []

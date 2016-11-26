@@ -122,10 +122,10 @@ type Msg
   | SetHoldingPeriod String
   | SelectCompany Company
   | Calculate
-  | Check
+  | Chart
 
 
-port check : String -> Cmd msg
+port chart : List Float -> Cmd msg
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -151,7 +151,7 @@ update msg model =
       let
         newModel = { model | company = newCompany }
       in
-        ( newModel, Cmd.none)
+        ( newModel, Cmd.none )
 
     Calculate ->
       let
@@ -162,10 +162,10 @@ update msg model =
             , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
           }
       in
-        update Check newModel
+        update Chart newModel
 
-    Check ->
-      ( model, check "whoa" )
+    Chart ->
+      ( model, chart [2.2,3.4,4.5] )
 
 
 subscriptions : Model -> Sub Msg
@@ -226,7 +226,7 @@ view model =
           , div [ class "col-xs-4 col-sm-4" ]
             [ Html.text "Purchase Price" ]
           , div [ class "col-xs-4 col-sm-4" ]
-            [ input [ id "puchasePrice", class "form-control", onInput SetPurchasePrice, onBlur Calculate, value (toString model.company.purchasePrice)]
+            [ input [ id "puchasePrice", class "form-control", onInput SetPurchasePrice, value (toString model.company.purchasePrice)]
               []
             ]
           , div [ class "col-xs-2 col-sm-2" ]
@@ -238,7 +238,7 @@ view model =
           , div [ class "col-xs-4 col-sm-4" ]
             [ Html.text "Holding Period" ]
           , div [ class "col-xs-4 col-sm-4" ]
-            [ input [ id "holdingPeriod", class "form-control", onInput SetHoldingPeriod, onBlur Calculate, value (toString model.holdingPeriod)]
+            [ input [ id "holdingPeriod", class "form-control", onInput SetHoldingPeriod, value (toString model.holdingPeriod)]
               []
             ]
           , div [ class "col-xs-2 col-sm-2" ]

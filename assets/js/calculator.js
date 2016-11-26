@@ -8315,10 +8315,13 @@ var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
 var _user$project$Calculator$initialModel = {company: _user$project$Calculator$companyDefault, holdingPeriod: 10.0, futureValue: 0.0, annualReturn: 0.0, totalReturn: 0.0};
 var _user$project$Calculator$init = {ctor: '_Tuple2', _0: _user$project$Calculator$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
-var _user$project$Calculator$check = _elm_lang$core$Native_Platform.outgoingPort(
-	'check',
+var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort(
+	'chart',
 	function (v) {
-		return v;
+		return _elm_lang$core$Native_List.toArray(v).map(
+			function (v) {
+				return v;
+			});
 	});
 var _user$project$Calculator$Model = F5(
 	function (a, b, c, d, e) {
@@ -8328,7 +8331,7 @@ var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
 		return {$yield: a, fullName: b, purchasePrice: c, growth: d, dividend: e};
 	});
-var _user$project$Calculator$Check = {ctor: 'Check'};
+var _user$project$Calculator$Chart = {ctor: 'Chart'};
 var _user$project$Calculator$Calculate = {ctor: 'Calculate'};
 var _user$project$Calculator$update = F2(
 	function (msg, model) {
@@ -8379,7 +8382,7 @@ var _user$project$Calculator$update = F2(
 							annualReturn: A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice),
 							totalReturn: A6(_user$project$Calculator$totalReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice)
 						});
-					var _v15 = _user$project$Calculator$Check,
+					var _v15 = _user$project$Calculator$Chart,
 						_v16 = newModel;
 					msg = _v15;
 					model = _v16;
@@ -8388,7 +8391,20 @@ var _user$project$Calculator$update = F2(
 					return {
 						ctor: '_Tuple2',
 						_0: model,
-						_1: _user$project$Calculator$check('whoa')
+						_1: _user$project$Calculator$chart(
+							{
+								ctor: '::',
+								_0: 2.2,
+								_1: {
+									ctor: '::',
+									_0: 3.4,
+									_1: {
+										ctor: '::',
+										_0: 4.5,
+										_1: {ctor: '[]'}
+									}
+								}
+							})
 					};
 			}
 		}
@@ -8803,13 +8819,9 @@ var _user$project$Calculator$view = function (model) {
 																				_0: _elm_lang$html$Html_Events$onInput(_user$project$Calculator$SetPurchasePrice),
 																				_1: {
 																					ctor: '::',
-																					_0: _elm_lang$html$Html_Events$onBlur(_user$project$Calculator$Calculate),
-																					_1: {
-																						ctor: '::',
-																						_0: _elm_lang$html$Html_Attributes$value(
-																							_elm_lang$core$Basics$toString(model.company.purchasePrice)),
-																						_1: {ctor: '[]'}
-																					}
+																					_0: _elm_lang$html$Html_Attributes$value(
+																						_elm_lang$core$Basics$toString(model.company.purchasePrice)),
+																					_1: {ctor: '[]'}
 																				}
 																			}
 																		}
@@ -8889,13 +8901,9 @@ var _user$project$Calculator$view = function (model) {
 																					_0: _elm_lang$html$Html_Events$onInput(_user$project$Calculator$SetHoldingPeriod),
 																					_1: {
 																						ctor: '::',
-																						_0: _elm_lang$html$Html_Events$onBlur(_user$project$Calculator$Calculate),
-																						_1: {
-																							ctor: '::',
-																							_0: _elm_lang$html$Html_Attributes$value(
-																								_elm_lang$core$Basics$toString(model.holdingPeriod)),
-																							_1: {ctor: '[]'}
-																						}
+																						_0: _elm_lang$html$Html_Attributes$value(
+																							_elm_lang$core$Basics$toString(model.holdingPeriod)),
+																						_1: {ctor: '[]'}
 																					}
 																				}
 																			}

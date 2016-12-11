@@ -1,0 +1,794 @@
+var _simonh1000$elm_charts$Chart$viewLine = _simonh1000$elm_charts$LineChart$viewLine;
+var _simonh1000$elm_charts$Chart$viewPie = function (model) {
+	var get_ = function (sel) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			A2(_elm_lang$core$Dict$get, sel, model.styles));
+	};
+	var legend = function (items) {
+		return A3(
+			_elm_lang$core$List$map2,
+			F2(
+				function (_p0, col) {
+					var _p1 = _p0;
+					return A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								get_('legend-labels')),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'background-color', _1: col},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'height', _1: '20px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'width', _1: '20px'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'margin-right', _1: '5px'},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(' '),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(_p1.label),
+								_1: {ctor: '[]'}
+							}
+						});
+				}),
+			items,
+			model.colours);
+	};
+	var elem = F3(
+		function (off, ang, col) {
+			return A2(
+				_elm_lang$svg$Svg$circle,
+				{
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$r('16'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$cx('16'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$cy('16'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$stroke(col),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$strokeDashoffset(
+										_elm_lang$core$Basics$toString(
+											A2(_elm_lang$core$Debug$log, 'accOff', off))),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$strokeDasharray(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												_elm_lang$core$Basics$toString(
+													A2(_elm_lang$core$Debug$log, 'b', ang)),
+												' 100')),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$style(
+												get_('chart-elements')),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{ctor: '[]'});
+		});
+	var go = F2(
+		function (val, _p2) {
+			var _p3 = _p2;
+			var _p8 = _p3._1;
+			var _p7 = _p3._0;
+			var _p6 = _p3._2;
+			var _p4 = _p8;
+			if (_p4.ctor === '::') {
+				var _p5 = _p4._1;
+				var ang = (((val.normValue / 100) * 2) * 3.1415) * 16;
+				return {
+					ctor: '_Tuple3',
+					_0: _p7 - ang,
+					_1: _elm_lang$core$List$isEmpty(_p5) ? model.colours : _p5,
+					_2: {
+						ctor: '::',
+						_0: A3(elem, _p7, ang, _p4._0),
+						_1: _p6
+					}
+				};
+			} else {
+				return {ctor: '_Tuple3', _0: _p7, _1: _p8, _2: _p6};
+			}
+		});
+	var _p9 = A3(
+		_elm_lang$core$List$foldr,
+		go,
+		{
+			ctor: '_Tuple3',
+			_0: 0,
+			_1: model.colours,
+			_2: {ctor: '[]'}
+		},
+		model.items);
+	var elems = _p9._2;
+	return {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					get_('chart')),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 32 32'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$preserveAspectRatio('xMidYMid slice'),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			elems),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						get_('legend')),
+					_1: {ctor: '[]'}
+				},
+				legend(model.items)),
+			_1: {ctor: '[]'}
+		}
+	};
+};
+var _simonh1000$elm_charts$Chart$viewBarVertical = function (model) {
+	var rotateLabel = F2(
+		function (lenData, idx) {
+			var labelWidth = 60;
+			var offset = function () {
+				var _p10 = _elm_lang$core$Native_Utils.eq(
+					A2(_elm_lang$core$Basics_ops['%'], lenData, 2),
+					0);
+				if (_p10 === true) {
+					return (((((lenData / 2) | 0) - idx) - 1) * labelWidth) + 20;
+				} else {
+					return ((((lenData / 2) | 0) - idx) * labelWidth) - 10;
+				}
+			}();
+			return {
+				ctor: '_Tuple2',
+				_0: 'transform',
+				_1: A2(
+					_elm_lang$core$Basics_ops['++'],
+					'translateX( ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(offset),
+						'px) translateY(30px) rotate(-45deg)'))
+			};
+		});
+	var get_ = function (sel) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			A2(_elm_lang$core$Dict$get, sel, model.styles));
+	};
+	var elements = A2(
+		_elm_lang$core$List$map,
+		function (_p11) {
+			var _p12 = _p11;
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'height',
+								_1: A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(_p12.normValue),
+									'%')
+							},
+							_1: get_('chart-elements')
+						}),
+					_1: {ctor: '[]'}
+				},
+				{ctor: '[]'});
+		},
+		model.items);
+	var labels = A2(
+		_elm_lang$core$List$indexedMap,
+		F2(
+			function (idx, item) {
+				return A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: A2(
+									rotateLabel,
+									_elm_lang$core$List$length(model.items),
+									idx),
+								_1: get_('legend-labels')
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							function (_) {
+								return _.label;
+							}(item)),
+						_1: {ctor: '[]'}
+					});
+			}),
+		model.items);
+	return {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					get_('chart')),
+				_1: {ctor: '[]'}
+			},
+			elements),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						get_('legend')),
+					_1: {ctor: '[]'}
+				},
+				labels),
+			_1: {ctor: '[]'}
+		}
+	};
+};
+var _simonh1000$elm_charts$Chart$viewBarHorizontal = function (model) {
+	var colour = A2(
+		_elm_lang$core$Maybe$withDefault,
+		'steelblue',
+		_elm_lang$core$List$head(model.colours));
+	var get_ = function (sel) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			A2(_elm_lang$core$Dict$get, sel, model.styles));
+	};
+	var elements = A2(
+		_elm_lang$core$List$map,
+		function (_p13) {
+			var _p14 = _p13;
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(_p14.normValue),
+										'%')
+								},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'background-color', _1: colour},
+									_1: {ctor: '[]'}
+								}
+							},
+							get_('chart-elements'))),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								get_('legend-labels')),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(_p14.label),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		},
+		model.items);
+	return elements;
+};
+var _simonh1000$elm_charts$Chart$toHtml = function (model) {
+	var get_ = function (sel) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			A2(_elm_lang$core$Dict$get, sel, model.styles));
+	};
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				get_('container')),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h3,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						get_('title')),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(model.title),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							get_('chart-container')),
+						_1: {ctor: '[]'}
+					},
+					function () {
+						var _p15 = model.chartType;
+						switch (_p15.ctor) {
+							case 'BarHorizontal':
+								return _simonh1000$elm_charts$Chart$viewBarHorizontal(model);
+							case 'BarVertical':
+								return _simonh1000$elm_charts$Chart$viewBarVertical(model);
+							case 'Pie':
+								return _simonh1000$elm_charts$Chart$viewPie(model);
+							default:
+								return _simonh1000$elm_charts$Chart$viewLine(model);
+						}
+					}()),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _simonh1000$elm_charts$Chart$changeStyles = F2(
+	function (_p16, styles) {
+		var _p17 = _p16;
+		var _p20 = _p17._0;
+		return {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: _p20, _1: _p17._1},
+			_1: A2(
+				_elm_lang$core$List$filter,
+				function (_p18) {
+					var _p19 = _p18;
+					return !_elm_lang$core$Native_Utils.eq(_p19._0, _p20);
+				},
+				styles)
+		};
+	});
+var _simonh1000$elm_charts$Chart$toPercent = function (model) {
+	var tot = _elm_lang$core$List$sum(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.value;
+			},
+			model.items));
+	var items = A2(
+		_elm_lang$core$Debug$log,
+		'toPercent',
+		A2(
+			_elm_lang$core$List$map,
+			function (item) {
+				return _elm_lang$core$Native_Utils.update(
+					item,
+					{normValue: (item.value / tot) * 100});
+			},
+			model.items));
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{items: items});
+};
+var _simonh1000$elm_charts$Chart$normalise = function (model) {
+	var _p21 = _elm_lang$core$List$maximum(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.value;
+			},
+			model.items));
+	if (_p21.ctor === 'Nothing') {
+		return model;
+	} else {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				items: A2(
+					_elm_lang$core$List$map,
+					function (item) {
+						return _elm_lang$core$Native_Utils.update(
+							item,
+							{normValue: (item.value / _p21._0) * 100});
+					},
+					model.items)
+			});
+	}
+};
+var _simonh1000$elm_charts$Chart$updateStyles = F3(
+	function (selector, lst, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				styles: A3(
+					_elm_lang$core$Dict$update,
+					selector,
+					_elm_lang$core$Maybe$map(
+						A2(
+							_elm_lang$core$Basics$flip,
+							_elm_lang$core$List$foldl(_simonh1000$elm_charts$Chart$changeStyles),
+							lst)),
+					model.styles)
+			});
+	});
+var _simonh1000$elm_charts$Chart$addValueToLabel = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			items: A2(
+				_elm_lang$core$List$map,
+				function (item) {
+					return _elm_lang$core$Native_Utils.update(
+						item,
+						{
+							label: A2(
+								_elm_lang$core$Basics_ops['++'],
+								item.label,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' ',
+									_elm_lang$core$Basics$toString(item.value)))
+						});
+				},
+				model.items)
+		});
+};
+var _simonh1000$elm_charts$Chart$colours = F2(
+	function (newColours, model) {
+		var _p22 = newColours;
+		if (_p22.ctor === '[]') {
+			return model;
+		} else {
+			var _p24 = _p22._0;
+			var _p23 = model.chartType;
+			if (_p23.ctor === 'Pie') {
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						colours: {ctor: '::', _0: _p24, _1: _p22._1}
+					});
+			} else {
+				return A3(
+					_simonh1000$elm_charts$Chart$updateStyles,
+					'chart',
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'background-color', _1: _p24},
+						_1: {ctor: '[]'}
+					},
+					model);
+			}
+		}
+	});
+var _simonh1000$elm_charts$Chart$colors = _simonh1000$elm_charts$Chart$colours;
+var _simonh1000$elm_charts$Chart$title = F2(
+	function (newTitle, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{title: newTitle});
+	});
+var _simonh1000$elm_charts$Chart$lChart = function (data) {
+	return A3(
+		_simonh1000$elm_charts$Chart$updateStyles,
+		'chart-container',
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'center'},
+			_1: {ctor: '[]'}
+		},
+		A2(_simonh1000$elm_charts$ChartModel$chartInit, data, _simonh1000$elm_charts$ChartModel$Line));
+};
+var _simonh1000$elm_charts$Chart$pie = function (data) {
+	return A3(
+		_simonh1000$elm_charts$Chart$updateStyles,
+		'legend-labels',
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'white-space', _1: 'nowrap'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'text-overflow', _1: 'ellipsis'},
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		A3(
+			_simonh1000$elm_charts$Chart$updateStyles,
+			'legend',
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'flex-direction', _1: 'column'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'center'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'padding-left', _1: '15px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'flex-basis', _1: '67%'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'flex-grow', _1: '2'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'max-width', _1: '100%'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			},
+			A3(
+				_simonh1000$elm_charts$Chart$updateStyles,
+				'chart-elements',
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'fill-opacity', _1: '0'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'stroke-width', _1: '32'},
+						_1: {ctor: '[]'}
+					}
+				},
+				A3(
+					_simonh1000$elm_charts$Chart$updateStyles,
+					'chart',
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'height', _1: '200px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'transform', _1: 'rotate(-90deg)'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'background', _1: 'grey'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '50%'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					A3(
+						_simonh1000$elm_charts$Chart$updateStyles,
+						'chart-container',
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'center'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'center'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'flex-wrap', _1: 'wrap'},
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						A2(
+							_elm_lang$core$Debug$log,
+							'%',
+							_simonh1000$elm_charts$Chart$toPercent(
+								A2(_simonh1000$elm_charts$ChartModel$chartInit, data, _simonh1000$elm_charts$ChartModel$Pie))))))));
+};
+var _simonh1000$elm_charts$Chart$vBar = function (data) {
+	return A3(
+		_simonh1000$elm_charts$Chart$updateStyles,
+		'legend-labels',
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'width', _1: '100px'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'right'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'overflow', _1: 'hidden'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'white-space', _1: 'nowrap'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'text-overflow', _1: 'ellipsis'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		},
+		A3(
+			_simonh1000$elm_charts$Chart$updateStyles,
+			'legend',
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'align-self', _1: 'center'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'height', _1: '70px'},
+					_1: {ctor: '[]'}
+				}
+			},
+			A3(
+				_simonh1000$elm_charts$Chart$updateStyles,
+				'chart-elements',
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'steelblue'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'padding', _1: '3px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'margin', _1: '1px'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'width', _1: '30px'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				A3(
+					_simonh1000$elm_charts$Chart$updateStyles,
+					'chart',
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'center'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'align-items', _1: 'flex-end'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'height', _1: '300px'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					A3(
+						_simonh1000$elm_charts$Chart$updateStyles,
+						'chart-container',
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'flex-direction', _1: 'column'},
+							_1: {ctor: '[]'}
+						},
+						_simonh1000$elm_charts$Chart$normalise(
+							A2(_simonh1000$elm_charts$ChartModel$chartInit, data, _simonh1000$elm_charts$ChartModel$BarVertical)))))));
+};
+var _simonh1000$elm_charts$Chart$hBar = function (data) {
+	return A3(
+		_simonh1000$elm_charts$Chart$updateStyles,
+		'legend-labels',
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+			_1: {ctor: '[]'}
+		},
+		A3(
+			_simonh1000$elm_charts$Chart$updateStyles,
+			'chart-elements',
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'steelblue'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '3px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'margin', _1: '1px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'right'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			A3(
+				_simonh1000$elm_charts$Chart$updateStyles,
+				'chart-container',
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font', _1: '10px sans-serif'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				_simonh1000$elm_charts$Chart$addValueToLabel(
+					_simonh1000$elm_charts$Chart$normalise(
+						A2(_simonh1000$elm_charts$ChartModel$chartInit, data, _simonh1000$elm_charts$ChartModel$BarHorizontal))))));
+};

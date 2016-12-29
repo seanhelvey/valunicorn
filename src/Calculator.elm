@@ -155,6 +155,7 @@ update msg model =
 
     Calculate ->
       let
+        -- consider making this its own method
         newModel = 
           { 
             model 

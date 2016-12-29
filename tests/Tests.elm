@@ -46,8 +46,9 @@ all =
                         company = initialModel.company
                         newCompany = { company | purchasePrice = 30 }
                         newModel = { initialModel | company = newCompany }
+                        (actualModel, _) = (update (SetPurchasePrice "30") initialModel)
                     in
-                        Expect.equal (update (SetPurchasePrice "30") initialModel) newModel
+                        Expect.equal actualModel newModel
             ]
         ]
 

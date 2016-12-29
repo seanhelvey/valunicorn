@@ -129,6 +129,11 @@ var _user$project$Tests$all = A2(
 							'SetPurchasePrice',
 							function (_p16) {
 								var _p17 = _p16;
+								var _p18 = A2(
+									_user$project$Calculator$update,
+									_user$project$Calculator$SetPurchasePrice('30'),
+									_user$project$Calculator$initialModel);
+								var actualModel = _p18._0;
 								var company = _user$project$Calculator$initialModel.company;
 								var newCompany = _elm_lang$core$Native_Utils.update(
 									company,
@@ -136,13 +141,7 @@ var _user$project$Tests$all = A2(
 								var newModel = _elm_lang$core$Native_Utils.update(
 									_user$project$Calculator$initialModel,
 									{company: newCompany});
-								return A2(
-									_elm_community$elm_test$Expect$equal,
-									A2(
-										_user$project$Calculator$update,
-										_user$project$Calculator$SetPurchasePrice('30'),
-										_user$project$Calculator$initialModel),
-									newModel);
+								return A2(_elm_community$elm_test$Expect$equal, actualModel, newModel);
 							}),
 						_1: {ctor: '[]'}
 					}),

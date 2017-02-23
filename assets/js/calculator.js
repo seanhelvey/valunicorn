@@ -8423,7 +8423,7 @@ var _user$project$Calculator$view = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('calculator'),
+			_0: _elm_lang$html$Html_Attributes$class('calculator container'),
 			_1: {ctor: '[]'}
 		},
 		{

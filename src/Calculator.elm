@@ -177,7 +177,7 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-  div [ class "calculator" ]
+  div [ class "calculator container" ]
     [ div [] [
       h2 [] [ Html.text model.company.fullName ]
       , div [ class "row extra-margin" ]

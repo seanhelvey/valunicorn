@@ -50,6 +50,14 @@ var _user$project$Calculator$totalReturn = F6(
 	function (x, acc, d, g, n, p) {
 		return A5(_user$project$Calculator$futureValue, x, acc, d, g, n) / p;
 	});
+var _user$project$Calculator$newFunction = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			annualReturn: A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice),
+			totalReturn: A6(_user$project$Calculator$totalReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice)
+		});
+};
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
 var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
@@ -118,12 +126,7 @@ var _user$project$Calculator$update = F2(
 						{company: _p0._0});
 					return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
 				case 'Calculate':
-					var newModel = _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							annualReturn: A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice),
-							totalReturn: A6(_user$project$Calculator$totalReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice)
-						});
+					var newModel = _user$project$Calculator$newFunction(model);
 					var _v15 = _user$project$Calculator$Chart,
 						_v16 = newModel;
 					msg = _v15;
@@ -143,7 +146,15 @@ var _user$project$Calculator$update = F2(
 									_1: {
 										ctor: '::',
 										_0: 4.5,
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: 5.5,
+											_1: {
+												ctor: '::',
+												_0: 6.5,
+												_1: {ctor: '[]'}
+											}
+										}
 									}
 								}
 							})

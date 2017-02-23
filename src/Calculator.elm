@@ -117,6 +117,14 @@ totalReturn : Float -> Float -> Float -> Float -> Float -> Float -> Float
 totalReturn x acc d g n p =  
   ((futureValue x acc d g n) / p)
 
+calculateReturn : Model -> Model
+calculateReturn model =
+  { 
+    model 
+    | annualReturn = (rateOfReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
+    , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
+  }  
+
 type Msg
   = SetPurchasePrice String
   | SetHoldingPeriod String
@@ -155,18 +163,12 @@ update msg model =
 
     Calculate ->
       let
-        -- consider making this its own method
-        newModel = 
-          { 
-            model 
-            | annualReturn = (rateOfReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-            , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-          }
+        newModel = calculateReturn model
       in
         update Chart newModel
 
     Chart ->
-      ( model, chart [2.2,3.4,4.5] )
+      ( model, chart [2.2,3.4,4.5, 5.5, 6.5] )
 
 
 subscriptions : Model -> Sub Msg

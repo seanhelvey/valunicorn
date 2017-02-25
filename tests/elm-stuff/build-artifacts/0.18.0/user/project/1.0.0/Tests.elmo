@@ -5,7 +5,7 @@ var _user$project$Tests$all = A2(
 		ctor: '::',
 		_0: A2(
 			_elm_community$elm_test$Test$describe,
-			'futureValue',
+			'aggregateFutureValues',
 			{
 				ctor: '::',
 				_0: A2(
@@ -15,7 +15,10 @@ var _user$project$Tests$all = A2(
 						var _p1 = _p0;
 						return A2(
 							_elm_community$elm_test$Expect$equal,
-							A5(_user$project$Calculator$futureValue, 0.0, 0.0, 2.65, 6.2e-2, 0),
+							A2(
+								_mgold$elm_nonempty_list$List_Nonempty$get,
+								-1,
+								A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 0)),
 							2.65);
 					}),
 				_1: {
@@ -27,7 +30,10 @@ var _user$project$Tests$all = A2(
 							var _p3 = _p2;
 							return A2(
 								_elm_community$elm_test$Expect$equal,
-								A5(_user$project$Calculator$futureValue, 0.0, 0.0, 2.65, 6.2e-2, 1),
+								A2(
+									_mgold$elm_nonempty_list$List_Nonempty$get,
+									-1,
+									A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 1)),
 								2.8143000000000002);
 						}),
 					_1: {
@@ -39,7 +45,10 @@ var _user$project$Tests$all = A2(
 								var _p5 = _p4;
 								return A2(
 									_elm_community$elm_test$Expect$equal,
-									A5(_user$project$Calculator$futureValue, 0.0, 0.0, 2.65, 6.2e-2, 5),
+									A2(
+										_mgold$elm_nonempty_list$List_Nonempty$get,
+										-1,
+										A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 5)),
 									15.927942909494408);
 							}),
 						_1: {
@@ -51,7 +60,10 @@ var _user$project$Tests$all = A2(
 									var _p7 = _p6;
 									return A2(
 										_elm_community$elm_test$Expect$equal,
-										A5(_user$project$Calculator$futureValue, 0.0, 0.0, 2.65, 6.2e-2, 10.0),
+										A2(
+											_mgold$elm_nonempty_list$List_Nonempty$get,
+											-1,
+											A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 10.0)),
 										37.44497036944294);
 								}),
 							_1: {ctor: '[]'}

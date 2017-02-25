@@ -1,61 +1,58 @@
 var _user$project$Calculator$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Calculator$futureValue = F5(
+var _user$project$Calculator$totalReturn = function (p) {
+	return function (_p0) {
+		return A3(
+			_elm_lang$core$Basics$flip,
+			F2(
+				function (x, y) {
+					return x / y;
+				}),
+			p,
+			A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, _p0));
+	};
+};
+var _user$project$Calculator$aggregateFutureValues = F5(
 	function (x, acc, d, g, n) {
-		futureValue:
-		while (true) {
-			if (_elm_lang$core$Native_Utils.eq(n, 0)) {
-				return d;
-			} else {
-				if (_elm_lang$core$Native_Utils.eq(x, n)) {
-					return acc + d;
-				} else {
-					if (_elm_lang$core$Native_Utils.eq(x, 0)) {
-						var _v0 = x + 1,
-							_v1 = 0,
-							_v2 = d * (1 + g),
-							_v3 = g,
-							_v4 = n;
-						x = _v0;
-						acc = _v1;
-						d = _v2;
-						g = _v3;
-						n = _v4;
-						continue futureValue;
-					} else {
-						var _v5 = x + 1,
-							_v6 = acc + d,
-							_v7 = d * (1 + g),
-							_v8 = g,
-							_v9 = n;
-						x = _v5;
-						acc = _v6;
-						d = _v7;
-						g = _v8;
-						n = _v9;
-						continue futureValue;
-					}
-				}
-			}
-		}
+		return _elm_lang$core$Native_Utils.eq(n, 0) ? _mgold$elm_nonempty_list$List_Nonempty$fromElement(d) : (_elm_lang$core$Native_Utils.eq(x, n) ? _mgold$elm_nonempty_list$List_Nonempty$fromElement(acc + d) : (_elm_lang$core$Native_Utils.eq(x, 0) ? A2(
+			_mgold$elm_nonempty_list$List_Nonempty$cons,
+			acc,
+			A5(_user$project$Calculator$aggregateFutureValues, x + 1, 0, d * (1 + g), g, n)) : A2(
+			_mgold$elm_nonempty_list$List_Nonempty$cons,
+			acc,
+			A5(_user$project$Calculator$aggregateFutureValues, x + 1, acc + d, d * (1 + g), g, n))));
 	});
 var _user$project$Calculator$rateOfReturn = F6(
 	function (x, acc, d, g, n, p) {
-		return _elm_lang$core$Native_Utils.eq(n, 0) ? (A5(_user$project$Calculator$futureValue, x, acc, d, g, n) / p) : (Math.pow(
-			(A5(_user$project$Calculator$futureValue, x, acc, d, g, n) / p) + 1,
+		return _elm_lang$core$Native_Utils.eq(n, 0) ? (A2(
+			_mgold$elm_nonempty_list$List_Nonempty$get,
+			-1,
+			A5(_user$project$Calculator$aggregateFutureValues, x, acc, d, g, n)) / p) : (Math.pow(
+			(A2(
+				_mgold$elm_nonempty_list$List_Nonempty$get,
+				-1,
+				A5(_user$project$Calculator$aggregateFutureValues, x, acc, d, g, n)) / p) + 1,
 			1 / n) - 1);
 	});
-var _user$project$Calculator$totalReturn = F6(
-	function (x, acc, d, g, n, p) {
-		return A5(_user$project$Calculator$futureValue, x, acc, d, g, n) / p;
-	});
+var _user$project$Calculator$calculateReturn = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			aggregateList: A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod)
+		});
+};
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
 var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
 var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.66};
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
-var _user$project$Calculator$initialModel = {company: _user$project$Calculator$companyDefault, holdingPeriod: 10.0, futureValue: 0.0, annualReturn: 0.0, totalReturn: 0.0};
+var _user$project$Calculator$initialModel = {
+	company: _user$project$Calculator$companyDefault,
+	holdingPeriod: 10.0,
+	futureValue: 0.0,
+	aggregateList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
+};
 var _user$project$Calculator$init = {ctor: '_Tuple2', _0: _user$project$Calculator$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort(
 	'chart',
@@ -65,9 +62,9 @@ var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort
 				return v;
 			});
 	});
-var _user$project$Calculator$Model = F5(
-	function (a, b, c, d, e) {
-		return {company: a, holdingPeriod: b, futureValue: c, annualReturn: d, totalReturn: e};
+var _user$project$Calculator$Model = F4(
+	function (a, b, c, d) {
+		return {company: a, holdingPeriod: b, futureValue: c, aggregateList: d};
 	});
 var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
@@ -79,13 +76,13 @@ var _user$project$Calculator$update = F2(
 	function (msg, model) {
 		update:
 		while (true) {
-			var _p0 = msg;
-			switch (_p0.ctor) {
+			var _p1 = msg;
+			switch (_p1.ctor) {
 				case 'SetPurchasePrice':
 					var newPurchasePrice = A2(
 						_elm_lang$core$Result$withDefault,
 						0,
-						_elm_lang$core$String$toFloat(_p0._0));
+						_elm_lang$core$String$toFloat(_p1._0));
 					var company = model.company;
 					var dividend = company.dividend;
 					var newCompany = _elm_lang$core$Native_Utils.update(
@@ -94,59 +91,42 @@ var _user$project$Calculator$update = F2(
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{company: newCompany});
-					var _v11 = _user$project$Calculator$Calculate,
-						_v12 = newModel;
-					msg = _v11;
-					model = _v12;
+					var _v1 = _user$project$Calculator$Calculate,
+						_v2 = newModel;
+					msg = _v1;
+					model = _v2;
 					continue update;
 				case 'SetHoldingPeriod':
 					var holdingPeriod = A2(
 						_elm_lang$core$Result$withDefault,
 						0,
-						_elm_lang$core$String$toFloat(_p0._0));
+						_elm_lang$core$String$toFloat(_p1._0));
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{holdingPeriod: holdingPeriod});
-					var _v13 = _user$project$Calculator$Calculate,
-						_v14 = newModel;
-					msg = _v13;
-					model = _v14;
+					var _v3 = _user$project$Calculator$Calculate,
+						_v4 = newModel;
+					msg = _v3;
+					model = _v4;
 					continue update;
 				case 'SelectCompany':
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
-						{company: _p0._0});
+						{company: _p1._0});
 					return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
 				case 'Calculate':
-					var newModel = _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							annualReturn: A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice),
-							totalReturn: A6(_user$project$Calculator$totalReturn, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod, model.company.purchasePrice)
-						});
-					var _v15 = _user$project$Calculator$Chart,
-						_v16 = newModel;
-					msg = _v15;
-					model = _v16;
+					var newModel = _user$project$Calculator$calculateReturn(model);
+					var _v5 = _user$project$Calculator$Chart,
+						_v6 = newModel;
+					msg = _v5;
+					model = _v6;
 					continue update;
 				default:
 					return {
 						ctor: '_Tuple2',
 						_0: model,
 						_1: _user$project$Calculator$chart(
-							{
-								ctor: '::',
-								_0: 2.2,
-								_1: {
-									ctor: '::',
-									_0: 3.4,
-									_1: {
-										ctor: '::',
-										_0: 4.5,
-										_1: {ctor: '[]'}
-									}
-								}
-							})
+							_mgold$elm_nonempty_list$List_Nonempty$toList(model.aggregateList))
 					};
 			}
 		}
@@ -735,14 +715,7 @@ var _user$project$Calculator$view = function (model) {
 																},
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(
-																		A2(
-																			_elm_lang$core$Basics_ops['++'],
-																			A2(
-																				_elm_lang$core$String$left,
-																				4,
-																				_elm_lang$core$Basics$toString(model.annualReturn * 100)),
-																			'%')),
+																	_0: _elm_lang$html$Html$text(''),
 																	_1: {ctor: '[]'}
 																}),
 															_1: {
@@ -805,13 +778,24 @@ var _user$project$Calculator$view = function (model) {
 																	{
 																		ctor: '::',
 																		_0: _elm_lang$html$Html$text(
-																			A2(
-																				_elm_lang$core$Basics_ops['++'],
+																			A3(
+																				_elm_lang$core$Basics$flip,
+																				F2(
+																					function (x, y) {
+																						return A2(_elm_lang$core$Basics_ops['++'], x, y);
+																					}),
+																				'%',
 																				A2(
 																					_elm_lang$core$String$left,
 																					4,
-																					_elm_lang$core$Basics$toString(model.totalReturn * 100)),
-																				'%')),
+																					_elm_lang$core$Basics$toString(
+																						A2(
+																							F2(
+																								function (x, y) {
+																									return x * y;
+																								}),
+																							100,
+																							A2(_user$project$Calculator$totalReturn, model.company.purchasePrice, model.aggregateList)))))),
 																		_1: {ctor: '[]'}
 																	}),
 																_1: {

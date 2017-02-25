@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
 import Debug exposing (log)
+import List.Nonempty as Nonempty exposing (Nonempty)
 
 
 main =
@@ -22,8 +23,7 @@ type alias Model =
   { company : Company 
   , holdingPeriod : Float
   , futureValue : Float
-  , annualReturn : Float
-  , totalReturn : Float
+  , aggregateList : Nonempty Float
   }
 
 type alias Company =
@@ -43,8 +43,7 @@ initialModel =
   { company = companyDefault
   , holdingPeriod = 10.0
   , futureValue = 0.0
-  , annualReturn = 0.0
-  , totalReturn = 0.0
+  , aggregateList = Nonempty.fromElement 0.0
   }
 
 companyDefault : Company
@@ -94,36 +93,32 @@ companyJNJ =
 
 -- UPDATE
 
-futureValue : Float -> Float -> Float -> Float -> Float -> Float
-futureValue x acc d g n =
+aggregateFutureValues : Float -> Float -> Float -> Float -> Float -> Nonempty Float
+aggregateFutureValues x acc d g n =
   if (n == 0) then
-    d
+    Nonempty.fromElement d
   else if (x == n) then
-    acc + d
+    Nonempty.fromElement <| acc + d
   else
     if (x == 0) then
-      futureValue (x+1) 0 (d*(1+g)) g n
+      Nonempty.cons acc <| aggregateFutureValues (x+1) 0 (d*(1+g)) g n
     else 
-      futureValue (x+1) (acc+d) (d*(1+g)) g n
+      Nonempty.cons acc <| aggregateFutureValues (x+1) (acc+d) (d*(1+g)) g n
 
 rateOfReturn : Float -> Float -> Float -> Float -> Float -> Float -> Float
 rateOfReturn x acc d g n p =  
   if (n == 0) then
-    ((futureValue x acc d g n) / p)
+    ((Nonempty.get -1 (aggregateFutureValues x acc d g n)) / p)
   else 
-    (((futureValue x acc d g n) / p) + 1) ^ (1 / n) - 1
+    (((Nonempty.get -1 (aggregateFutureValues x acc d g n)) / p) + 1) ^ (1 / n) - 1
 
-totalReturn : Float -> Float -> Float -> Float -> Float -> Float -> Float
-totalReturn x acc d g n p =  
-  ((futureValue x acc d g n) / p)
+totalReturn : Float -> Nonempty Float -> Float
+totalReturn p =
+  Nonempty.get -1 >> flip (/) p
 
 calculateReturn : Model -> Model
 calculateReturn model =
-  { 
-    model 
-    | annualReturn = (rateOfReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-    , totalReturn = (totalReturn 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod model.company.purchasePrice)
-  }  
+  { model | aggregateList = aggregateFutureValues 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod }  
 
 type Msg
   = SetPurchasePrice String
@@ -168,7 +163,7 @@ update msg model =
         update Chart newModel
 
     Chart ->
-      ( model, chart [2.2,3.4,4.5, 5.5, 6.5] )
+      ( model, chart <| Nonempty.toList model.aggregateList )
 
 
 subscriptions : Model -> Sub Msg
@@ -257,7 +252,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Annual Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text ((String.left 4 (toString (model.annualReturn * 100))) ++ "%") ]
+            [ Html.text "" ]--((String.left 4 (toString (model.annualReturn * 100))) ++ "%") ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]
@@ -267,7 +262,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Total Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text ((String.left 4 (toString (model.totalReturn * 100))) ++ "%") ]
+            [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| totalReturn model.company.purchasePrice model.aggregateList ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]

@@ -64,7 +64,7 @@
         $("#calculatorChart").append(chart.element);
 
         app.ports.chart.subscribe(function(word) {
-          var column = [];
+          var column = ["data 1"];
           console.log("word: " + word);
           chart.load({
             columns: [

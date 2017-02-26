@@ -50,10 +50,12 @@
             },
             axis: {
                 x: {
-                  label: 'Schwing'
+                  label: 'test',
+                  max: 30
                 },
                 y: {
-                    max: 50,
+                    min: -10,
+                    max: 200,
                     padding: {top: 5, bottom: -10},
                 }
             },
@@ -62,7 +64,7 @@
         $("#calculatorChart").append(chart.element);
 
         app.ports.chart.subscribe(function(word) {
-          var column = ['Oddy oddy'];
+          var column = [];
           console.log("word: " + word);
           chart.load({
             columns: [

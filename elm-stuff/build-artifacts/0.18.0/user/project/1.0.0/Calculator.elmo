@@ -665,7 +665,7 @@ var _user$project$Calculator$view = function (model) {
 																{
 																	ctor: '::',
 																	_0: A2(
-																		_elm_lang$html$Html$input,
+																		_elm_lang$html$Html$select,
 																		{
 																			ctor: '::',
 																			_0: _elm_lang$html$Html_Attributes$id('holdingPeriod'),
@@ -675,16 +675,71 @@ var _user$project$Calculator$view = function (model) {
 																				_1: {
 																					ctor: '::',
 																					_0: _elm_lang$html$Html_Events$onInput(_user$project$Calculator$SetHoldingPeriod),
+																					_1: {ctor: '[]'}
+																				}
+																			}
+																		},
+																		{
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$option,
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Attributes$value('5'),
+																					_1: {ctor: '[]'}
+																				},
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$html$Html$text('5 years'),
+																					_1: {ctor: '[]'}
+																				}),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(
+																					_elm_lang$html$Html$option,
+																					{
+																						ctor: '::',
+																						_0: _elm_lang$html$Html_Attributes$value('10'),
+																						_1: {ctor: '[]'}
+																					},
+																					{
+																						ctor: '::',
+																						_0: _elm_lang$html$Html$text('10 years'),
+																						_1: {ctor: '[]'}
+																					}),
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_elm_lang$html$Html$option,
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html_Attributes$value('20'),
+																							_1: {ctor: '[]'}
+																						},
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html$text('20 years'),
+																							_1: {ctor: '[]'}
+																						}),
 																					_1: {
 																						ctor: '::',
-																						_0: _elm_lang$html$Html_Attributes$value(
-																							_elm_lang$core$Basics$toString(model.holdingPeriod)),
+																						_0: A2(
+																							_elm_lang$html$Html$option,
+																							{
+																								ctor: '::',
+																								_0: _elm_lang$html$Html_Attributes$value('30'),
+																								_1: {ctor: '[]'}
+																							},
+																							{
+																								ctor: '::',
+																								_0: _elm_lang$html$Html$text('30 years'),
+																								_1: {ctor: '[]'}
+																							}),
 																						_1: {ctor: '[]'}
 																					}
 																				}
 																			}
-																		},
-																		{ctor: '[]'}),
+																		}),
 																	_1: {ctor: '[]'}
 																}),
 															_1: {

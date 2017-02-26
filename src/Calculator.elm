@@ -7,7 +7,6 @@ import String
 import Debug exposing (log)
 import List.Nonempty as Nonempty exposing (Nonempty)
 
-
 main =
   Html.program
     { init = init
@@ -61,7 +60,7 @@ companyPG =
   , fullName = "The Procter & Gamble Company (PG)"
   , purchasePrice = 83.00
   , growth = 0.062
-  , dividend = 2.66
+  , dividend = 2.65
   }
 
 companyKO : Company
@@ -93,24 +92,48 @@ companyJNJ =
 
 -- UPDATE
 
-aggregateFutureValues : Float -> Float -> Float -> Float -> Float -> Nonempty Float
-aggregateFutureValues x acc d g n =
-  if (n == 0) then
-    Nonempty.fromElement d
+generateDividends : Float -> Nonempty Float -> Float -> Float -> Float -> Nonempty Float
+generateDividends x accList d g n =
+  if (x == 0) then
+    generateDividends (x+1) accList (d*(1+g)) g n
   else if (x == n) then
-    Nonempty.fromElement <| acc + d
+    let
+      priorD = Nonempty.get -1 accList
+    in
+      Nonempty.append accList (Nonempty.fromElement (priorD+d))
   else
-    if (x == 0) then
-      Nonempty.cons acc <| aggregateFutureValues (x+1) 0 (d*(1+g)) g n
-    else 
-      Nonempty.cons acc <| aggregateFutureValues (x+1) (acc+d) (d*(1+g)) g n
+    let 
+      priorD = Nonempty.get -1 accList
+      newAccList = Nonempty.append accList (Nonempty.fromElement (priorD+d))
+    in 
+      if (x == 1) then
+        generateDividends (x+1) (Nonempty.fromElement d) (d*(1+g)) g n        
+      else
+        generateDividends (x+1) newAccList (d*(1+g)) g n
 
-rateOfReturn : Float -> Float -> Float -> Float -> Float -> Float -> Float
+
+--generateDividends : Float -> Nonempty Float -> Float -> Float -> Float -> Nonempty Float
+--generateDividends x accList d g n =
+--  if (x == 0) then
+--    generateDividends (x+1) accList (d*(1+g)) g n
+--  else if (x == n) then
+--    Nonempty.append accList (Nonempty.fromElement d)
+--  else
+--    let 
+--      newAccList = Nonempty.append accList (Nonempty.fromElement d)
+--    in 
+--      if (x == 1) then
+--        generateDividends (x+1) (Nonempty.fromElement d) (d*(1+g)) g n        
+--      else
+--        generateDividends (x+1) newAccList (d*(1+g)) g n
+
+
+rateOfReturn : Float -> Nonempty Float -> Float -> Float -> Float -> Float -> Float
 rateOfReturn x acc d g n p =  
   if (n == 0) then
-    ((Nonempty.get -1 (aggregateFutureValues x acc d g n)) / p)
+    ((Nonempty.get -1 (generateDividends x acc d g n)) / p)
   else 
-    (((Nonempty.get -1 (aggregateFutureValues x acc d g n)) / p) + 1) ^ (1 / n) - 1
+    (((Nonempty.get -1 (generateDividends x acc d g n)) / p) + 1) ^ (1 / n) - 1
 
 totalReturn : Float -> Nonempty Float -> Float
 totalReturn p =
@@ -118,7 +141,7 @@ totalReturn p =
 
 calculateReturn : Model -> Model
 calculateReturn model =
-  { model | aggregateList = aggregateFutureValues 0.0 0.0 model.company.dividend model.company.growth model.holdingPeriod }  
+  { model | aggregateList = generateDividends 0.0 (Nonempty.fromElement 0.0) model.company.dividend model.company.growth model.holdingPeriod }  
 
 type Msg
   = SetPurchasePrice String

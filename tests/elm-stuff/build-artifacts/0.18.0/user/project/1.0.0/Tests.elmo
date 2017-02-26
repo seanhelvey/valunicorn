@@ -5,7 +5,7 @@ var _user$project$Tests$all = A2(
 		ctor: '::',
 		_0: A2(
 			_elm_community$elm_test$Test$describe,
-			'aggregateFutureValues',
+			'generateDividends',
 			{
 				ctor: '::',
 				_0: A2(
@@ -18,7 +18,13 @@ var _user$project$Tests$all = A2(
 							A2(
 								_mgold$elm_nonempty_list$List_Nonempty$get,
 								-1,
-								A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 0)),
+								A5(
+									_user$project$Calculator$generateDividends,
+									0.0,
+									_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+									2.65,
+									6.2e-2,
+									0)),
 							2.65);
 					}),
 				_1: {
@@ -33,7 +39,13 @@ var _user$project$Tests$all = A2(
 								A2(
 									_mgold$elm_nonempty_list$List_Nonempty$get,
 									-1,
-									A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 1)),
+									A5(
+										_user$project$Calculator$generateDividends,
+										0.0,
+										_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+										2.65,
+										6.2e-2,
+										1)),
 								2.8143000000000002);
 						}),
 					_1: {
@@ -48,7 +60,13 @@ var _user$project$Tests$all = A2(
 									A2(
 										_mgold$elm_nonempty_list$List_Nonempty$get,
 										-1,
-										A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 5)),
+										A5(
+											_user$project$Calculator$generateDividends,
+											0.0,
+											_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+											2.65,
+											6.2e-2,
+											5)),
 									15.927942909494408);
 							}),
 						_1: {
@@ -63,7 +81,13 @@ var _user$project$Tests$all = A2(
 										A2(
 											_mgold$elm_nonempty_list$List_Nonempty$get,
 											-1,
-											A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, 2.65, 6.2e-2, 10.0)),
+											A5(
+												_user$project$Calculator$generateDividends,
+												0.0,
+												_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+												2.65,
+												6.2e-2,
+												10.0)),
 										37.44497036944294);
 								}),
 							_1: {ctor: '[]'}
@@ -85,7 +109,14 @@ var _user$project$Tests$all = A2(
 							var _p9 = _p8;
 							return A2(
 								_elm_community$elm_test$Expect$equal,
-								A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, 2.65, 6.2e-2, 0, 82),
+								A6(
+									_user$project$Calculator$rateOfReturn,
+									0.0,
+									_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+									2.65,
+									6.2e-2,
+									0,
+									82),
 								3.231707317073171e-2);
 						}),
 					_1: {
@@ -97,7 +128,14 @@ var _user$project$Tests$all = A2(
 								var _p11 = _p10;
 								return A2(
 									_elm_community$elm_test$Expect$equal,
-									A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, 2.65, 6.2e-2, 1, 82),
+									A6(
+										_user$project$Calculator$rateOfReturn,
+										0.0,
+										_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+										2.65,
+										6.2e-2,
+										1,
+										82),
 									3.432073170731709e-2);
 							}),
 						_1: {
@@ -109,7 +147,14 @@ var _user$project$Tests$all = A2(
 									var _p13 = _p12;
 									return A2(
 										_elm_community$elm_test$Expect$equal,
-										A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, 2.65, 6.2e-2, 5, 82),
+										A6(
+											_user$project$Calculator$rateOfReturn,
+											0.0,
+											_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+											2.65,
+											6.2e-2,
+											5,
+											82),
 										3.614027671403286e-2);
 								}),
 							_1: {
@@ -121,7 +166,14 @@ var _user$project$Tests$all = A2(
 										var _p15 = _p14;
 										return A2(
 											_elm_community$elm_test$Expect$equal,
-											A6(_user$project$Calculator$rateOfReturn, 0.0, 0.0, 2.65, 6.2e-2, 10.0, 82),
+											A6(
+												_user$project$Calculator$rateOfReturn,
+												0.0,
+												_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+												2.65,
+												6.2e-2,
+												10.0,
+												82),
 											3.832999855794661e-2);
 									}),
 								_1: {ctor: '[]'}

@@ -9506,39 +9506,93 @@ var _user$project$Calculator$totalReturn = function (p) {
 			A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, _p0));
 	};
 };
-var _user$project$Calculator$aggregateFutureValues = F5(
-	function (x, acc, d, g, n) {
-		return _elm_lang$core$Native_Utils.eq(n, 0) ? _mgold$elm_nonempty_list$List_Nonempty$fromElement(d) : (_elm_lang$core$Native_Utils.eq(x, n) ? _mgold$elm_nonempty_list$List_Nonempty$fromElement(acc + d) : (_elm_lang$core$Native_Utils.eq(x, 0) ? A2(
-			_mgold$elm_nonempty_list$List_Nonempty$cons,
-			acc,
-			A5(_user$project$Calculator$aggregateFutureValues, x + 1, 0, d * (1 + g), g, n)) : A2(
-			_mgold$elm_nonempty_list$List_Nonempty$cons,
-			acc,
-			A5(_user$project$Calculator$aggregateFutureValues, x + 1, acc + d, d * (1 + g), g, n))));
+var _user$project$Calculator$generateDividends = F5(
+	function (x, accList, d, g, n) {
+		generateDividends:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.eq(x, 0)) {
+				var _v0 = x + 1,
+					_v1 = accList,
+					_v2 = d * (1 + g),
+					_v3 = g,
+					_v4 = n;
+				x = _v0;
+				accList = _v1;
+				d = _v2;
+				g = _v3;
+				n = _v4;
+				continue generateDividends;
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(x, n)) {
+					var priorD = A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, accList);
+					return A2(
+						_mgold$elm_nonempty_list$List_Nonempty$append,
+						accList,
+						_mgold$elm_nonempty_list$List_Nonempty$fromElement(priorD + d));
+				} else {
+					var priorD = A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, accList);
+					var newAccList = A2(
+						_mgold$elm_nonempty_list$List_Nonempty$append,
+						accList,
+						_mgold$elm_nonempty_list$List_Nonempty$fromElement(priorD + d));
+					if (_elm_lang$core$Native_Utils.eq(x, 1)) {
+						var _v5 = x + 1,
+							_v6 = _mgold$elm_nonempty_list$List_Nonempty$fromElement(d),
+							_v7 = d * (1 + g),
+							_v8 = g,
+							_v9 = n;
+						x = _v5;
+						accList = _v6;
+						d = _v7;
+						g = _v8;
+						n = _v9;
+						continue generateDividends;
+					} else {
+						var _v10 = x + 1,
+							_v11 = newAccList,
+							_v12 = d * (1 + g),
+							_v13 = g,
+							_v14 = n;
+						x = _v10;
+						accList = _v11;
+						d = _v12;
+						g = _v13;
+						n = _v14;
+						continue generateDividends;
+					}
+				}
+			}
+		}
 	});
 var _user$project$Calculator$rateOfReturn = F6(
 	function (x, acc, d, g, n, p) {
 		return _elm_lang$core$Native_Utils.eq(n, 0) ? (A2(
 			_mgold$elm_nonempty_list$List_Nonempty$get,
 			-1,
-			A5(_user$project$Calculator$aggregateFutureValues, x, acc, d, g, n)) / p) : (Math.pow(
+			A5(_user$project$Calculator$generateDividends, x, acc, d, g, n)) / p) : (Math.pow(
 			(A2(
 				_mgold$elm_nonempty_list$List_Nonempty$get,
 				-1,
-				A5(_user$project$Calculator$aggregateFutureValues, x, acc, d, g, n)) / p) + 1,
+				A5(_user$project$Calculator$generateDividends, x, acc, d, g, n)) / p) + 1,
 			1 / n) - 1);
 	});
 var _user$project$Calculator$calculateReturn = function (model) {
 	return _elm_lang$core$Native_Utils.update(
 		model,
 		{
-			aggregateList: A5(_user$project$Calculator$aggregateFutureValues, 0.0, 0.0, model.company.dividend, model.company.growth, model.holdingPeriod)
+			aggregateList: A5(
+				_user$project$Calculator$generateDividends,
+				0.0,
+				_mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+				model.company.dividend,
+				model.company.growth,
+				model.holdingPeriod)
 		});
 };
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
 var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
-var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.66};
+var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.65};
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
@@ -9584,10 +9638,10 @@ var _user$project$Calculator$update = F2(
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{company: newCompany});
-					var _v1 = _user$project$Calculator$Calculate,
-						_v2 = newModel;
-					msg = _v1;
-					model = _v2;
+					var _v16 = _user$project$Calculator$Calculate,
+						_v17 = newModel;
+					msg = _v16;
+					model = _v17;
 					continue update;
 				case 'SetHoldingPeriod':
 					var holdingPeriod = A2(
@@ -9597,10 +9651,10 @@ var _user$project$Calculator$update = F2(
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
 						{holdingPeriod: holdingPeriod});
-					var _v3 = _user$project$Calculator$Calculate,
-						_v4 = newModel;
-					msg = _v3;
-					model = _v4;
+					var _v18 = _user$project$Calculator$Calculate,
+						_v19 = newModel;
+					msg = _v18;
+					model = _v19;
 					continue update;
 				case 'SelectCompany':
 					var newModel = _elm_lang$core$Native_Utils.update(
@@ -9609,10 +9663,10 @@ var _user$project$Calculator$update = F2(
 					return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
 				case 'Calculate':
 					var newModel = _user$project$Calculator$calculateReturn(model);
-					var _v5 = _user$project$Calculator$Chart,
-						_v6 = newModel;
-					msg = _v5;
-					model = _v6;
+					var _v20 = _user$project$Calculator$Chart,
+						_v21 = newModel;
+					msg = _v20;
+					model = _v21;
 					continue update;
 				default:
 					return {

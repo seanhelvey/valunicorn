@@ -40,7 +40,7 @@ init =
 initialModel : Model
 initialModel = 
   { company = companyDefault
-  , holdingPeriod = 10.0
+  , holdingPeriod = 5.0
   , futureValue = 0.0
   , aggregateList = Nonempty.fromElement 0.0
   }
@@ -100,7 +100,7 @@ generateDividends x accList d g n =
     let
       priorD = Nonempty.get -1 accList
     in
-      Nonempty.append accList (Nonempty.fromElement (priorD+d))
+      Nonempty.append (Nonempty.fromElement 0) (Nonempty.append accList (Nonempty.fromElement (priorD+d)))
   else
     let 
       priorD = Nonempty.get -1 accList

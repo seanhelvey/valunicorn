@@ -9527,8 +9527,11 @@ var _user$project$Calculator$generateDividends = F5(
 					var priorD = A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, accList);
 					return A2(
 						_mgold$elm_nonempty_list$List_Nonempty$append,
-						accList,
-						_mgold$elm_nonempty_list$List_Nonempty$fromElement(priorD + d));
+						_mgold$elm_nonempty_list$List_Nonempty$fromElement(0),
+						A2(
+							_mgold$elm_nonempty_list$List_Nonempty$append,
+							accList,
+							_mgold$elm_nonempty_list$List_Nonempty$fromElement(priorD + d)));
 				} else {
 					var priorD = A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, accList);
 					var newAccList = A2(
@@ -9596,7 +9599,7 @@ var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter
 var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a company to begin', purchasePrice: 0.0, growth: 0.0, dividend: 0.0};
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
-	holdingPeriod: 10.0,
+	holdingPeriod: 5.0,
 	futureValue: 0.0,
 	aggregateList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
 };

@@ -94,7 +94,7 @@ companyJNJ =
 
 generateDividends : Float -> Nonempty Float -> Float -> Float -> Float -> Nonempty Float
 generateDividends x accList d g n =
-  if (x == 0) then
+  if x == 0 && x /= n then
     generateDividends (x+1) accList (d*(1+g)) g n
   else if (x == n) then
     let

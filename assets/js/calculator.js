@@ -9100,8 +9100,8 @@ var _mgold$elm_nonempty_list$List_Nonempty$get = F2(
 						return _elm_lang$core$Native_Utils.crashCase(
 							'List.Nonempty',
 							{
-								start: {line: 104, column: 13},
-								end: {line: 112, column: 40}
+								start: {line: 131, column: 13},
+								end: {line: 139, column: 40}
 							},
 							_p16)('This can\'t happen: attempted to take value at safe index from empty list');
 					} else {
@@ -9327,8 +9327,8 @@ var _mgold$elm_nonempty_list$List_Nonempty$sort = function (_p64) {
 		return _elm_lang$core$Native_Utils.crashCase(
 			'List.Nonempty',
 			{
-				start: {line: 331, column: 5},
-				end: {line: 336, column: 92}
+				start: {line: 360, column: 5},
+				end: {line: 365, column: 92}
 			},
 			_p66)('This can\'t happen: sorting a nonempty list returned an empty list');
 	}
@@ -9346,8 +9346,8 @@ var _mgold$elm_nonempty_list$List_Nonempty$sortBy = F2(
 			return _elm_lang$core$Native_Utils.crashCase(
 				'List.Nonempty',
 				{
-					start: {line: 343, column: 5},
-					end: {line: 348, column: 94}
+					start: {line: 372, column: 5},
+					end: {line: 377, column: 94}
 				},
 				_p70)('This can\'t happen: sortBying a nonempty list returned an empty list');
 		}
@@ -9365,8 +9365,8 @@ var _mgold$elm_nonempty_list$List_Nonempty$sortWith = F2(
 			return _elm_lang$core$Native_Utils.crashCase(
 				'List.Nonempty',
 				{
-					start: {line: 355, column: 5},
-					end: {line: 360, column: 96}
+					start: {line: 384, column: 5},
+					end: {line: 389, column: 96}
 				},
 				_p74)('This can\'t happen: sortWithing a nonempty list returned an empty list');
 		}
@@ -9490,6 +9490,33 @@ var _mgold$elm_nonempty_list$List_Nonempty$scanl1 = F2(
 					_p91._1));
 		}
 	});
+var _mgold$elm_nonempty_list$List_Nonempty$zip = F2(
+	function (_p94, _p93) {
+		var _p95 = _p94;
+		var _p96 = _p93;
+		return A2(
+			_mgold$elm_nonempty_list$List_Nonempty$Nonempty,
+			{ctor: '_Tuple2', _0: _p95._0, _1: _p96._0},
+			A3(
+				_elm_lang$core$List$map2,
+				F2(
+					function (v0, v1) {
+						return {ctor: '_Tuple2', _0: v0, _1: v1};
+					}),
+				_p95._1,
+				_p96._1));
+	});
+var _mgold$elm_nonempty_list$List_Nonempty$unzip = function (_p97) {
+	var _p98 = _p97;
+	var _p99 = _elm_lang$core$List$unzip(_p98._1);
+	var xs = _p99._0;
+	var ys = _p99._1;
+	return {
+		ctor: '_Tuple2',
+		_0: A2(_mgold$elm_nonempty_list$List_Nonempty$Nonempty, _p98._0._0, xs),
+		_1: A2(_mgold$elm_nonempty_list$List_Nonempty$Nonempty, _p98._0._1, ys)
+	};
+};
 
 var _user$project$Calculator$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;

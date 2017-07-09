@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import String
 import Debug exposing (log)
 import List.Nonempty as Nonempty exposing (Nonempty)
+import List.Extra as Extra exposing (unfoldr)
 
 main =
   Html.program
@@ -112,28 +113,34 @@ generateDividends x accList d g n =
         generateDividends (x+1) newAccList (d*(1+g)) g n
 
 
---generateDividends : Float -> Nonempty Float -> Float -> Float -> Float -> Nonempty Float
---generateDividends x accList d g n =
---  if (x == 0) then
---    generateDividends (x+1) accList (d*(1+g)) g n
---  else if (x == n) then
---    Nonempty.append accList (Nonempty.fromElement d)
---  else
---    let 
---      newAccList = Nonempty.append accList (Nonempty.fromElement d)
---    in 
---      if (x == 1) then
---        generateDividends (x+1) (Nonempty.fromElement d) (d*(1+g)) g n        
---      else
---        generateDividends (x+1) newAccList (d*(1+g)) g n
+buildFutureValues x d g n = 
+  let 
+    y = (Debug.log "x " x)
+    e = (Debug.log "d " d)
+    h = (Debug.log "g " g)
+    o = (Debug.log "n " n)
+    futureValuesNonEmpty = (Debug.log "futureValuesNonEmpty" (Nonempty.map (\n -> n^2) (Nonempty.fromElement 1000)))
+    futureValuesSeed = (Debug.log "futureValuesList" Nonempty.toList futureValuesNonEmpty)
+    futureValuesUnfolded = Extra.unfoldr (\b -> if b == 5 then Nothing else Just (b, b+1)) 0
+    d = (Debug.log "futureValuesUnfolded" futureValuesUnfolded)
+  in
+    futureValuesNonEmpty
 
 
 rateOfReturn : Float -> Nonempty Float -> Float -> Float -> Float -> Float -> Float
 rateOfReturn x acc d g n p =  
   if (n == 0) then
-    ((Nonempty.get -1 (generateDividends x acc d g n)) / p)
+    ((Nonempty.get -1 (buildFutureValues x d g n)) / p)
   else 
-    (((Nonempty.get -1 (generateDividends x acc d g n)) / p) + 1) ^ (1 / n) - 1
+    (((Nonempty.get -1 (buildFutureValues x d g n)) / p) + 1) ^ (1 / n) - 1
+
+
+--rateOfReturn : Float -> Nonempty Float -> Float -> Float -> Float -> Float -> Float
+--rateOfReturn x acc d g n p =  
+--  if (n == 0) then
+--    ((Nonempty.get -1 (generateDividends x acc d g n)) / p)
+--  else 
+--    (((Nonempty.get -1 (generateDividends x acc d g n)) / p) + 1) ^ (1 / n) - 1
 
 totalReturn : Float -> Nonempty Float -> Float
 totalReturn p =

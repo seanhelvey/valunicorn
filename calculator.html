@@ -42,17 +42,17 @@
     </div>
     <script src="assets/js/calculator.js"></script>
     <script>
+      $(document).ready(function() {
         var node = document.getElementById('calculator');
         var app = Elm.Calculator.embed(node);
         var chart = c3.generate({
             data: {
-              columns: []
+              columns: [["Future Value of Investment",1000,1032,1067.071488,1105.58317360998,1147.9586846655352,1194.6863737208487]]
             },
             axis: {
                 x: {
                   label: 'Years',
-                  min: 0,
-                  padding: {top: 5, bottom: -10},
+                  min: 0
                 },
                 y: {
                     min: 900,
@@ -63,15 +63,16 @@
 
         $("#calculatorChart").append(chart.element);
 
-        app.ports.chart.subscribe(function(word) {
-          var column = ["data 1"];
-          console.log("word: " + word);
+        app.ports.chart.subscribe(function(futureValues) {
+          var column = ["Future Value of Investment"];
+          console.log("futureValues: " + futureValues);
           chart.load({
             columns: [
-              column.concat(word)
+              column.concat(futureValues)
             ]
           });
         });
+      });
     </script>
 </body>
 

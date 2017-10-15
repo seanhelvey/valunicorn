@@ -42,7 +42,7 @@ init =
 
 initialModel : Model
 initialModel =
-  { company = companyDefault
+  { company = companyPG
   , holdingPeriod = 5.0
   , principal = 1000.0
   , dividendList = Nonempty.fromElement 0.0

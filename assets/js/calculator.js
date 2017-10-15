@@ -10902,7 +10902,7 @@ var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Co
 var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.65};
 var _user$project$Calculator$companyDefault = {$yield: 5.0e-2, fullName: 'Select a company to begin', purchasePrice: 20.0, growth: 7.0e-2, dividend: 1.0};
 var _user$project$Calculator$initialModel = {
-	company: _user$project$Calculator$companyDefault,
+	company: _user$project$Calculator$companyPG,
 	holdingPeriod: 5.0,
 	principal: 1000.0,
 	dividendList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),

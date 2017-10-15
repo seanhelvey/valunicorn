@@ -10860,20 +10860,36 @@ var _mgold$elm_nonempty_list$List_Nonempty$unzip = function (_p97) {
 var _user$project$Calculator$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Calculator$calcPeriod = F3(
+var _user$project$Calculator$generatePrincipal = F3(
 	function (model, a, b) {
-		var lastDividend = (model.company.$yield * Math.pow(1 + model.company.growth, a)) * b;
-		return b + lastDividend;
+		return _elm_lang$core$Native_Utils.eq(a, 0) ? ((1 + model.company.$yield) * b) : (((A2(
+			_mgold$elm_nonempty_list$List_Nonempty$get,
+			_elm_lang$core$Basics$round(a),
+			model.yieldList) * b) * (1 + model.company.growth)) + b);
 	});
-var _user$project$Calculator$generatePeriods = function (model) {
-	var generatedPrincipalList = A3(
+var _user$project$Calculator$generatePrincipalList = function (model) {
+	var generatedYieldList = A3(
 		_mgold$elm_nonempty_list$List_Nonempty$scanl,
-		_user$project$Calculator$calcPeriod(model),
+		_user$project$Calculator$generatePrincipal(model),
 		model.principal,
 		model.xAxis);
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{principalList: generatedPrincipalList});
+		{yieldList: generatedYieldList});
+};
+var _user$project$Calculator$generateYield = F3(
+	function (model, a, b) {
+		return _elm_lang$core$Native_Utils.eq(a, 0) ? model.company.$yield : (b * (1 + model.company.growth));
+	});
+var _user$project$Calculator$generateYieldList = function (model) {
+	var generatedYieldList = A3(
+		_mgold$elm_nonempty_list$List_Nonempty$scanl,
+		_user$project$Calculator$generateYield(model),
+		model.company.$yield,
+		model.xAxis);
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{yieldList: generatedYieldList});
 };
 var _user$project$Calculator$addOneUpToHoldingPeriod = F2(
 	function (n, b) {
@@ -10893,8 +10909,9 @@ var _user$project$Calculator$buildAxis = function (model) {
 		{xAxis: newAxis});
 };
 var _user$project$Calculator$generateFutureValues = function (model) {
-	return _user$project$Calculator$generatePeriods(
-		_user$project$Calculator$buildAxis(model));
+	return _user$project$Calculator$generatePrincipalList(
+		_user$project$Calculator$generateYieldList(
+			_user$project$Calculator$buildAxis(model)));
 };
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
@@ -10902,10 +10919,11 @@ var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Co
 var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.65};
 var _user$project$Calculator$companyDefault = {$yield: 5.0e-2, fullName: 'Select a company to begin', purchasePrice: 20.0, growth: 7.0e-2, dividend: 1.0};
 var _user$project$Calculator$initialModel = {
-	company: _user$project$Calculator$companyPG,
+	company: _user$project$Calculator$companyDefault,
 	holdingPeriod: 5.0,
 	principal: 1000.0,
 	dividendList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+	yieldList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
 	principalList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
 	xAxis: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
 };
@@ -10918,9 +10936,9 @@ var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort
 				return v;
 			});
 	});
-var _user$project$Calculator$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {company: a, holdingPeriod: b, principal: c, dividendList: d, principalList: e, xAxis: f};
+var _user$project$Calculator$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {company: a, holdingPeriod: b, principal: c, dividendList: d, yieldList: e, principalList: f, xAxis: g};
 	});
 var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
@@ -10982,7 +11000,7 @@ var _user$project$Calculator$update = F2(
 						ctor: '_Tuple2',
 						_0: model,
 						_1: _user$project$Calculator$chart(
-							_mgold$elm_nonempty_list$List_Nonempty$toList(model.principalList))
+							_mgold$elm_nonempty_list$List_Nonempty$toList(model.yieldList))
 					};
 			}
 		}

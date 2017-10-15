@@ -24,6 +24,7 @@ type alias Model =
   , holdingPeriod : Float
   , principal : Float
   , dividendList : Nonempty Float
+  , yieldList : Nonempty Float
   , principalList : Nonempty Float
   , xAxis : Nonempty Float
   }
@@ -42,10 +43,11 @@ init =
 
 initialModel : Model
 initialModel =
-  { company = companyPG
+  { company = companyDefault
   , holdingPeriod = 5.0
   , principal = 1000.0
   , dividendList = Nonempty.fromElement 0.0
+  , yieldList = Nonempty.fromElement 0.0
   , principalList = Nonempty.fromElement 0.0
   , xAxis = Nonempty.fromElement 0.0
   }
@@ -108,24 +110,37 @@ buildAxis model =
   in
     { model | xAxis = newAxis }
 
-calcPeriod : Model -> Float -> Float -> Float
-calcPeriod model a b =
-  let
-    lastDividend = ((model.company.yield * (1 + model.company.growth) ^ a) * b)
-  in
-    b + lastDividend
+generateYield : Model -> Float -> Float -> Float
+generateYield model a b =
+  if a == 0 then
+    model.company.yield
+  else
+    b * (1 + model.company.growth)
 
-
-generatePeriods : Model -> Model
-generatePeriods model =
+generateYieldList : Model -> Model
+generateYieldList model =
   let
-    generatedPrincipalList = Nonempty.scanl (calcPeriod model) model.principal model.xAxis
+    generatedYieldList = Nonempty.scanl (generateYield model) model.company.yield model.xAxis
   in
-    { model | principalList = generatedPrincipalList }
+    { model | yieldList = generatedYieldList }
+
+generatePrincipal : Model -> Float -> Float -> Float
+generatePrincipal model a b =
+  if a == 0 then
+    (1 + model.company.yield) * b
+  else
+    (((Nonempty.get (round a) model.yieldList) * b) * (1 + model.company.growth)) + b
+
+generatePrincipalList : Model -> Model
+generatePrincipalList model =
+  let
+    generatedYieldList = Nonempty.scanl (generatePrincipal model) model.principal model.xAxis
+  in
+    { model | yieldList = generatedYieldList }
 
 generateFutureValues : Model -> Model
 generateFutureValues model =
-    generatePeriods <| buildAxis model
+  generatePrincipalList <| generateYieldList <| buildAxis model
 
 type Msg
   = SetPurchasePrice String
@@ -170,7 +185,7 @@ update msg model =
         update Chart newModel
 
     Chart ->
-      ( model, chart <| Nonempty.toList model.principalList )
+      ( model, chart <| Nonempty.toList model.yieldList )
 
 
 subscriptions : Model -> Sub Msg

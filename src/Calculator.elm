@@ -22,7 +22,9 @@ main =
 type alias Model =
   { company : Company
   , holdingPeriod : Float
-  , aggregateList : Nonempty Float
+  , dividendList : Nonempty Float
+  , principalList : Nonempty Float
+  , xAxis : Nonempty Float
   }
 
 type alias Company =
@@ -41,7 +43,9 @@ initialModel : Model
 initialModel =
   { company = companyDefault
   , holdingPeriod = 5.0
-  , aggregateList = Nonempty.fromElement 0.0
+  , dividendList = Nonempty.fromElement 0.0
+  , principalList = Nonempty.fromElement 0.0
+  , xAxis = Nonempty.fromElement 0.0
   }
 
 companyDefault : Company
@@ -91,16 +95,31 @@ companyJNJ =
 
 -- UPDATE
 
+addOneUpToHoldingPeriod : Float -> Float -> Maybe (Float, Float)
 addOneUpToHoldingPeriod n b =
   if b == n then Nothing else Just (b, b+1.0)
 
 buildAxis : Model -> Model
 buildAxis model =
   let
-    xAxis = Nonempty.Nonempty 0.0 (Extra.unfoldr (addOneUpToHoldingPeriod model.holdingPeriod) 1.0)
+    newAxis = Nonempty.Nonempty 0.0 (Extra.unfoldr (addOneUpToHoldingPeriod model.holdingPeriod) 1.0)
   in
-    { model | aggregateList = xAxis }
+    { model | xAxis = newAxis }
 
+calcPeriodDiv : Model -> Float -> Float
+calcPeriodDiv model a =
+  ((model.company.yield * (1 + model.company.growth) ^ a) * 1000)
+
+generateDividends : Model -> Model
+generateDividends model =
+  let
+    divList = Nonempty.map (calcPeriodDiv model) model.xAxis
+  in
+    { model | dividendList = divList }
+
+generateFutureValues : Model -> Model
+generateFutureValues model =
+    generateDividends <| buildAxis model
 
 type Msg
   = SetPurchasePrice String
@@ -140,12 +159,12 @@ update msg model =
 
     BuildFutureValues ->
       let
-        newModel = buildAxis model
+        newModel = generateFutureValues model
       in
         update Chart newModel
 
     Chart ->
-      ( model, chart <| Nonempty.toList model.aggregateList )
+      ( model, chart <| Nonempty.toList model.dividendList )
 
 
 subscriptions : Model -> Sub Msg

@@ -10860,22 +10860,39 @@ var _mgold$elm_nonempty_list$List_Nonempty$unzip = function (_p97) {
 var _user$project$Calculator$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Calculator$someFun = F2(
+var _user$project$Calculator$calcPeriodDiv = F2(
+	function (model, a) {
+		return (model.company.$yield * Math.pow(1 + model.company.growth, a)) * 1000;
+	});
+var _user$project$Calculator$generateDividends = function (model) {
+	var divList = A2(
+		_mgold$elm_nonempty_list$List_Nonempty$map,
+		_user$project$Calculator$calcPeriodDiv(model),
+		model.xAxis);
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{dividendList: divList});
+};
+var _user$project$Calculator$addOneUpToHoldingPeriod = F2(
 	function (n, b) {
 		return _elm_lang$core$Native_Utils.eq(b, n) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
 			{ctor: '_Tuple2', _0: b, _1: b + 1.0});
 	});
 var _user$project$Calculator$buildAxis = function (model) {
-	var futureValuesUnfolded = A2(
+	var newAxis = A2(
 		_mgold$elm_nonempty_list$List_Nonempty$Nonempty,
 		0.0,
 		A2(
 			_elm_community$list_extra$List_Extra$unfoldr,
-			_user$project$Calculator$someFun(model.holdingPeriod),
+			_user$project$Calculator$addOneUpToHoldingPeriod(model.holdingPeriod),
 			1.0));
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{aggregateList: futureValuesUnfolded});
+		{xAxis: newAxis});
+};
+var _user$project$Calculator$generateFutureValues = function (model) {
+	return _user$project$Calculator$generateDividends(
+		_user$project$Calculator$buildAxis(model));
 };
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
@@ -10885,7 +10902,9 @@ var _user$project$Calculator$companyDefault = {$yield: 0.0, fullName: 'Select a 
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
 	holdingPeriod: 5.0,
-	aggregateList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
+	dividendList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+	principalList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+	xAxis: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
 };
 var _user$project$Calculator$init = {ctor: '_Tuple2', _0: _user$project$Calculator$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort(
@@ -10896,9 +10915,9 @@ var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort
 				return v;
 			});
 	});
-var _user$project$Calculator$Model = F3(
-	function (a, b, c) {
-		return {company: a, holdingPeriod: b, aggregateList: c};
+var _user$project$Calculator$Model = F5(
+	function (a, b, c, d, e) {
+		return {company: a, holdingPeriod: b, dividendList: c, principalList: d, xAxis: e};
 	});
 var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
@@ -10949,7 +10968,7 @@ var _user$project$Calculator$update = F2(
 						{company: _p0._0});
 					return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
 				case 'BuildFutureValues':
-					var newModel = _user$project$Calculator$buildAxis(model);
+					var newModel = _user$project$Calculator$generateFutureValues(model);
 					var _v5 = _user$project$Calculator$Chart,
 						_v6 = newModel;
 					msg = _v5;
@@ -10960,7 +10979,7 @@ var _user$project$Calculator$update = F2(
 						ctor: '_Tuple2',
 						_0: model,
 						_1: _user$project$Calculator$chart(
-							_mgold$elm_nonempty_list$List_Nonempty$toList(model.aggregateList))
+							_mgold$elm_nonempty_list$List_Nonempty$toList(model.dividendList))
 					};
 			}
 		}

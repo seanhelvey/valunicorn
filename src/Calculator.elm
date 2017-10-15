@@ -91,16 +91,15 @@ companyJNJ =
 
 -- UPDATE
 
-buildFutureValues : Model -> Model
-buildFutureValues model =
+addOneUpToHoldingPeriod n b =
+  if b == n then Nothing else Just (b, b+1.0)
+
+buildAxis : Model -> Model
+buildAxis model =
   let
-    futureValuesNonEmpty = (Debug.log "futureValuesNonEmpty" (Nonempty.map (\n -> n^2) (Nonempty.fromElement 1000.0)))
-    futureValuesSeed = (Debug.log "futureValuesList" (Nonempty.toList futureValuesNonEmpty))
-    futureValuesUnfolded = Extra.unfoldr (\b -> if b == 5.0 then Nothing else Just (b, b+1.0)) 1.0
-    futureValuesUnfoldedNonEmpty = Nonempty.Nonempty 0.0 futureValuesUnfolded
-    d = (Debug.log "futureValuesUnfoldedNonEmpty" futureValuesUnfoldedNonEmpty)
+    xAxis = Nonempty.Nonempty 0.0 (Extra.unfoldr (addOneUpToHoldingPeriod model.holdingPeriod) 1.0)
   in
-    { model | aggregateList = futureValuesUnfoldedNonEmpty }
+    { model | aggregateList = xAxis }
 
 
 type Msg
@@ -141,7 +140,7 @@ update msg model =
 
     BuildFutureValues ->
       let
-        newModel = buildFutureValues model
+        newModel = buildAxis model
       in
         update Chart newModel
 

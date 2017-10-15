@@ -16,7 +16,7 @@ all =
             [ test "1" <|
                 \() ->
                   let
-                    newModel = buildFutureValues initialModel
+                    newModel = buildAxis initialModel
                   in
                     Expect.equal (newModel.aggregateList) (Nonempty.Nonempty 0.0 [1.0, 2.0, 3.0, 4.0])
             , test "2" <|

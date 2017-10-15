@@ -20,9 +20,8 @@ main =
 -- MODEL
 
 type alias Model =
-  { company : Company 
+  { company : Company
   , holdingPeriod : Float
-  , futureValue : Float
   , aggregateList : Nonempty Float
   }
 
@@ -32,22 +31,21 @@ type alias Company =
   , purchasePrice : Float
   , growth : Float
   , dividend : Float
-  }  
+  }
 
 init: (Model, Cmd Msg)
-init = 
+init =
   (initialModel, Cmd.none)
 
 initialModel : Model
-initialModel = 
+initialModel =
   { company = companyDefault
   , holdingPeriod = 5.0
-  , futureValue = 0.0
   , aggregateList = Nonempty.fromElement 0.0
   }
 
 companyDefault : Company
-companyDefault = 
+companyDefault =
   { yield = 0.0
   , fullName = "Select a company to begin"
   , purchasePrice = 0.0
@@ -56,7 +54,7 @@ companyDefault =
   }
 
 companyPG : Company
-companyPG = 
+companyPG =
   { yield = 0.032
   , fullName = "The Procter & Gamble Company (PG)"
   , purchasePrice = 83.00
@@ -65,7 +63,7 @@ companyPG =
   }
 
 companyKO : Company
-companyKO = 
+companyKO =
   { yield = 0.029
   , fullName = "The Coca-Cola Company (KO)"
   , purchasePrice = 45.00
@@ -74,7 +72,7 @@ companyKO =
   }
 
 companyWMT : Company
-companyWMT = 
+companyWMT =
   { yield = 0.028
   , fullName = "Wal-Mart Stores Inc. (WMT)"
   , purchasePrice = 70.00
@@ -83,78 +81,33 @@ companyWMT =
   }
 
 companyJNJ : Company
-companyJNJ = 
+companyJNJ =
   { yield = 0.025
   , fullName = "Johnson & Johnson (JNJ)"
   , purchasePrice = 116.00
   , growth = 0.069
   , dividend = 2.95
-  }  
+  }
 
 -- UPDATE
 
-generateDividends : Float -> Nonempty Float -> Float -> Float -> Float -> Nonempty Float
-generateDividends x accList d g n =
-  if x == 0 && x /= n then
-    generateDividends (x+1) accList (d*(1+g)) g n
-  else if (x == n) then
-    let
-      priorD = Nonempty.get -1 accList
-    in
-      Nonempty.append (Nonempty.fromElement 0) (Nonempty.append accList (Nonempty.fromElement (priorD+d)))
-  else
-    let 
-      priorD = Nonempty.get -1 accList
-      newAccList = Nonempty.append accList (Nonempty.fromElement (priorD+d))
-    in 
-      if (x == 1) then
-        generateDividends (x+1) (Nonempty.fromElement d) (d*(1+g)) g n        
-      else
-        generateDividends (x+1) newAccList (d*(1+g)) g n
-
-
-buildFutureValues x d g n = 
-  let 
-    y = (Debug.log "x " x)
-    e = (Debug.log "d " d)
-    h = (Debug.log "g " g)
-    o = (Debug.log "n " n)
-    futureValuesNonEmpty = (Debug.log "futureValuesNonEmpty" (Nonempty.map (\n -> n^2) (Nonempty.fromElement 1000)))
-    futureValuesSeed = (Debug.log "futureValuesList" Nonempty.toList futureValuesNonEmpty)
-    futureValuesUnfolded = Extra.unfoldr (\b -> if b == 5 then Nothing else Just (b, b+1)) 0
-    d = (Debug.log "futureValuesUnfolded" futureValuesUnfolded)
+buildFutureValues : Model -> Model
+buildFutureValues model =
+  let
+    futureValuesNonEmpty = (Debug.log "futureValuesNonEmpty" (Nonempty.map (\n -> n^2) (Nonempty.fromElement 1000.0)))
+    futureValuesSeed = (Debug.log "futureValuesList" (Nonempty.toList futureValuesNonEmpty))
+    futureValuesUnfolded = Extra.unfoldr (\b -> if b == 5.0 then Nothing else Just (b, b+1.0)) 1.0
+    futureValuesUnfoldedNonEmpty = Nonempty.Nonempty 0.0 futureValuesUnfolded
+    d = (Debug.log "futureValuesUnfoldedNonEmpty" futureValuesUnfoldedNonEmpty)
   in
-    futureValuesNonEmpty
+    { model | aggregateList = futureValuesUnfoldedNonEmpty }
 
-
-rateOfReturn : Float -> Nonempty Float -> Float -> Float -> Float -> Float -> Float
-rateOfReturn x acc d g n p =  
-  if (n == 0) then
-    ((Nonempty.get -1 (buildFutureValues x d g n)) / p)
-  else 
-    (((Nonempty.get -1 (buildFutureValues x d g n)) / p) + 1) ^ (1 / n) - 1
-
-
---rateOfReturn : Float -> Nonempty Float -> Float -> Float -> Float -> Float -> Float
---rateOfReturn x acc d g n p =  
---  if (n == 0) then
---    ((Nonempty.get -1 (generateDividends x acc d g n)) / p)
---  else 
---    (((Nonempty.get -1 (generateDividends x acc d g n)) / p) + 1) ^ (1 / n) - 1
-
-totalReturn : Float -> Nonempty Float -> Float
-totalReturn p =
-  Nonempty.get -1 >> flip (/) p
-
-calculateReturn : Model -> Model
-calculateReturn model =
-  { model | aggregateList = generateDividends 0.0 (Nonempty.fromElement 0.0) model.company.dividend model.company.growth model.holdingPeriod }  
 
 type Msg
   = SetPurchasePrice String
   | SetHoldingPeriod String
   | SelectCompany Company
-  | Calculate
+  | BuildFutureValues
   | Chart
 
 
@@ -171,14 +124,14 @@ update msg model =
         newCompany = { company | purchasePrice = newPurchasePrice, yield = dividend / newPurchasePrice }
         newModel = { model | company = newCompany }
       in
-        update Calculate newModel
+        update BuildFutureValues newModel
 
     SetHoldingPeriod newHoldingPeriod ->
       let
-        holdingPeriod = Result.withDefault 0 (String.toFloat newHoldingPeriod) 
+        holdingPeriod = Result.withDefault 0 (String.toFloat newHoldingPeriod)
         newModel = { model | holdingPeriod = holdingPeriod }
       in
-        update Calculate newModel
+        update BuildFutureValues newModel
 
     SelectCompany newCompany ->
       let
@@ -186,9 +139,9 @@ update msg model =
       in
         ( newModel, Cmd.none )
 
-    Calculate ->
+    BuildFutureValues ->
       let
-        newModel = calculateReturn model
+        newModel = buildFutureValues model
       in
         update Chart newModel
 
@@ -209,7 +162,7 @@ view model =
       h2 [] [ Html.text model.company.fullName ]
       , div [ class "row extra-margin" ]
         [
-          div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick Calculate]
+          div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick BuildFutureValues]
               [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG)]
                   [ text "PG" ]
               , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO)]
@@ -291,7 +244,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Annual Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text "" ]--((String.left 4 (toString (model.annualReturn * 100))) ++ "%") ]
+            [ Html.text "" ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]
@@ -301,7 +254,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Total Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| totalReturn model.company.purchasePrice model.aggregateList ]
+            [ Html.text "" ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]

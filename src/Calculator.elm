@@ -22,6 +22,7 @@ main =
 type alias Model =
   { company : Company
   , holdingPeriod : Float
+  , principal : Float
   , dividendList : Nonempty Float
   , principalList : Nonempty Float
   , xAxis : Nonempty Float
@@ -43,6 +44,7 @@ initialModel : Model
 initialModel =
   { company = companyDefault
   , holdingPeriod = 5.0
+  , principal = 1000.0
   , dividendList = Nonempty.fromElement 0.0
   , principalList = Nonempty.fromElement 0.0
   , xAxis = Nonempty.fromElement 0.0
@@ -50,11 +52,11 @@ initialModel =
 
 companyDefault : Company
 companyDefault =
-  { yield = 0.0
+  { yield = 0.05
   , fullName = "Select a company to begin"
-  , purchasePrice = 0.0
-  , growth = 0.0
-  , dividend = 0.0
+  , purchasePrice = 20.0
+  , growth = 0.07
+  , dividend = 1.0
   }
 
 companyPG : Company
@@ -106,20 +108,24 @@ buildAxis model =
   in
     { model | xAxis = newAxis }
 
-calcPeriodDiv : Model -> Float -> Float
-calcPeriodDiv model a =
-  ((model.company.yield * (1 + model.company.growth) ^ a) * 1000)
-
-generateDividends : Model -> Model
-generateDividends model =
+calcPeriod : Model -> Float -> Float -> Float
+calcPeriod model a b =
   let
-    divList = Nonempty.map (calcPeriodDiv model) model.xAxis
+    lastDividend = ((model.company.yield * (1 + model.company.growth) ^ a) * b)
   in
-    { model | dividendList = divList }
+    b + lastDividend
+
+
+generatePeriods : Model -> Model
+generatePeriods model =
+  let
+    generatedPrincipalList = Nonempty.scanl (calcPeriod model) model.principal model.xAxis
+  in
+    { model | principalList = generatedPrincipalList }
 
 generateFutureValues : Model -> Model
 generateFutureValues model =
-    generateDividends <| buildAxis model
+    generatePeriods <| buildAxis model
 
 type Msg
   = SetPurchasePrice String
@@ -164,7 +170,7 @@ update msg model =
         update Chart newModel
 
     Chart ->
-      ( model, chart <| Nonempty.toList model.dividendList )
+      ( model, chart <| Nonempty.toList model.principalList )
 
 
 subscriptions : Model -> Sub Msg

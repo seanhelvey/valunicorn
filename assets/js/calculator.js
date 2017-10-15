@@ -9537,7 +9537,7 @@ var _user$project$Calculator$generateDividends = F5(
 	function (x, accList, d, g, n) {
 		generateDividends:
 		while (true) {
-			if (_elm_lang$core$Native_Utils.eq(x, 0)) {
+			if (_elm_lang$core$Native_Utils.eq(x, 0) && (!_elm_lang$core$Native_Utils.eq(x, n))) {
 				var _v0 = x + 1,
 					_v1 = accList,
 					_v2 = d * (1 + g),

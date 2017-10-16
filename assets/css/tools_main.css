@@ -40,7 +40,7 @@ body {
     margin-bottom: 5px;
 }*/
 
-.chart-wrapper {
+#chart-wrapper {
     width: 60%;
     clear: both;
     margin: 0 auto;

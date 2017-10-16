@@ -23,9 +23,8 @@ type alias Model =
   { company : Company
   , holdingPeriod : Float
   , principal : Float
-  , dividendList : Nonempty Float
-  , yieldList : Nonempty Float
   , principalList : Nonempty Float
+  , yieldList : Nonempty Float
   , xAxis : Nonempty Float
   }
 
@@ -46,9 +45,8 @@ initialModel =
   { company = companyDefault
   , holdingPeriod = 5.0
   , principal = 1000.0
-  , dividendList = Nonempty.fromElement 0.0
-  , yieldList = Nonempty.fromElement 0.0
   , principalList = Nonempty.fromElement 0.0
+  , yieldList = Nonempty.fromElement 0.0
   , xAxis = Nonempty.fromElement 0.0
   }
 
@@ -134,13 +132,21 @@ generatePrincipal model a b =
 generatePrincipalList : Model -> Model
 generatePrincipalList model =
   let
-    generatedYieldList = Nonempty.scanl (generatePrincipal model) model.principal model.xAxis
+    generatedPrincipalList = Nonempty.scanl (generatePrincipal model) model.principal model.xAxis
   in
-    { model | yieldList = generatedYieldList }
+    { model | principalList = generatedPrincipalList }
 
 generateFutureValues : Model -> Model
 generateFutureValues model =
   generatePrincipalList <| generateYieldList <| buildAxis model
+
+calculateAnnualReturn : Model -> Float
+calculateAnnualReturn model =
+  ((Nonempty.get -1 model.principalList / Nonempty.get 0 model.principalList) ^ (1 / model.holdingPeriod)) - 1
+
+calculateTotalReturn : Model -> Float
+calculateTotalReturn model =
+  (Nonempty.get -1 model.principalList / Nonempty.get 0 model.principalList) - 1
 
 type Msg
   = SetPurchasePrice String
@@ -185,7 +191,7 @@ update msg model =
         update Chart newModel
 
     Chart ->
-      ( model, chart <| Nonempty.toList model.yieldList )
+      ( model, chart <| Nonempty.toList model.principalList )
 
 
 subscriptions : Model -> Sub Msg
@@ -283,7 +289,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Annual Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text "" ]
+            [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateTotalReturn <| generateFutureValues model  ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]
@@ -293,7 +299,7 @@ view model =
           , div [ class "col-xs-5 col-sm-6" ]
             [ Html.text "Total Return" ]
           , div [ class "col-xs-2 col-sm-3" ]
-            [ Html.text "" ]
+            [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateTotalReturn <| generateFutureValues model ]
           , div [ class "col-xs-3 col-sm-2" ]
             []
           ]

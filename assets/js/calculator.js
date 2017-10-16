@@ -10860,6 +10860,14 @@ var _mgold$elm_nonempty_list$List_Nonempty$unzip = function (_p97) {
 var _user$project$Calculator$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
+var _user$project$Calculator$calculateTotalReturn = function (model) {
+	return (A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, model.principalList) / A2(_mgold$elm_nonempty_list$List_Nonempty$get, 0, model.principalList)) - 1;
+};
+var _user$project$Calculator$calculateAnnualReturn = function (model) {
+	return Math.pow(
+		A2(_mgold$elm_nonempty_list$List_Nonempty$get, -1, model.principalList) / A2(_mgold$elm_nonempty_list$List_Nonempty$get, 0, model.principalList),
+		1 / model.holdingPeriod) - 1;
+};
 var _user$project$Calculator$generatePrincipal = F3(
 	function (model, a, b) {
 		return _elm_lang$core$Native_Utils.eq(a, 0) ? ((1 + model.company.$yield) * b) : (((A2(
@@ -10868,14 +10876,14 @@ var _user$project$Calculator$generatePrincipal = F3(
 			model.yieldList) * b) * (1 + model.company.growth)) + b);
 	});
 var _user$project$Calculator$generatePrincipalList = function (model) {
-	var generatedYieldList = A3(
+	var generatedPrincipalList = A3(
 		_mgold$elm_nonempty_list$List_Nonempty$scanl,
 		_user$project$Calculator$generatePrincipal(model),
 		model.principal,
 		model.xAxis);
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{yieldList: generatedYieldList});
+		{principalList: generatedPrincipalList});
 };
 var _user$project$Calculator$generateYield = F3(
 	function (model, a, b) {
@@ -10922,9 +10930,8 @@ var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
 	holdingPeriod: 5.0,
 	principal: 1000.0,
-	dividendList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
-	yieldList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
 	principalList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
+	yieldList: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0),
 	xAxis: _mgold$elm_nonempty_list$List_Nonempty$fromElement(0.0)
 };
 var _user$project$Calculator$init = {ctor: '_Tuple2', _0: _user$project$Calculator$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
@@ -10936,9 +10943,9 @@ var _user$project$Calculator$chart = _elm_lang$core$Native_Platform.outgoingPort
 				return v;
 			});
 	});
-var _user$project$Calculator$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {company: a, holdingPeriod: b, principal: c, dividendList: d, yieldList: e, principalList: f, xAxis: g};
+var _user$project$Calculator$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {company: a, holdingPeriod: b, principal: c, principalList: d, yieldList: e, xAxis: f};
 	});
 var _user$project$Calculator$Company = F5(
 	function (a, b, c, d, e) {
@@ -11000,7 +11007,7 @@ var _user$project$Calculator$update = F2(
 						ctor: '_Tuple2',
 						_0: model,
 						_1: _user$project$Calculator$chart(
-							_mgold$elm_nonempty_list$List_Nonempty$toList(model.yieldList))
+							_mgold$elm_nonempty_list$List_Nonempty$toList(model.principalList))
 					};
 			}
 		}
@@ -11644,7 +11651,26 @@ var _user$project$Calculator$view = function (model) {
 																},
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text(''),
+																	_0: _elm_lang$html$Html$text(
+																		A3(
+																			_elm_lang$core$Basics$flip,
+																			F2(
+																				function (x, y) {
+																					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+																				}),
+																			'%',
+																			A2(
+																				_elm_lang$core$String$left,
+																				4,
+																				_elm_lang$core$Basics$toString(
+																					A2(
+																						F2(
+																							function (x, y) {
+																								return x * y;
+																							}),
+																						100,
+																						_user$project$Calculator$calculateAnnualReturn(
+																							_user$project$Calculator$generateFutureValues(model))))))),
 																	_1: {ctor: '[]'}
 																}),
 															_1: {
@@ -11706,7 +11732,26 @@ var _user$project$Calculator$view = function (model) {
 																	},
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text(''),
+																		_0: _elm_lang$html$Html$text(
+																			A3(
+																				_elm_lang$core$Basics$flip,
+																				F2(
+																					function (x, y) {
+																						return A2(_elm_lang$core$Basics_ops['++'], x, y);
+																					}),
+																				'%',
+																				A2(
+																					_elm_lang$core$String$left,
+																					4,
+																					_elm_lang$core$Basics$toString(
+																						A2(
+																							F2(
+																								function (x, y) {
+																									return x * y;
+																								}),
+																							100,
+																							_user$project$Calculator$calculateTotalReturn(
+																								_user$project$Calculator$generateFutureValues(model))))))),
 																		_1: {ctor: '[]'}
 																	}),
 																_1: {

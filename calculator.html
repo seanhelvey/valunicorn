@@ -65,7 +65,7 @@
         $("#calculatorChart").append(chart.element);
 
         app.ports.chart.subscribe(function(futureValues) {
-          var column = ["Future Value of Investment"];
+          var column = ["Future Value of $1,000 Investment"];
           console.log("futureValues: " + futureValues);
           chart.load({
             columns: [

@@ -46,6 +46,13 @@ body {
     margin: 0 auto;
 }
 
+.calculator-chart-wrapper {
+    padding-top: 20px;
+    width: 80%;
+    clear: both;
+    margin: 0 auto;
+}
+
 #thermo-wrapper {
     padding-top: 5%;
 }

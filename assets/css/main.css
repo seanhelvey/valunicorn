@@ -118,7 +118,7 @@ section {
   padding: 20px 0px 20px 0px;
 }
 
-section#one, section#pricing {
+section#zero, section#one, section#pricing {
   background-color: white;
 }
 
@@ -127,7 +127,7 @@ section#two {
   background-color: #EEE;
 }
 
-section#three {
+section#calc, section#three {
   background-color: #EEE;
 }
 
@@ -219,4 +219,11 @@ section#three {
     color: #23527c;
     text-decoration: underline;
     cursor: pointer; cursor: hand;
+}
+
+#calculatorPreview {
+  margin: 0 auto;
+  max-width: 80%;
+  max-height: 80%;
+
 }

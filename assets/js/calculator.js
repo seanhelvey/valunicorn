@@ -10921,6 +10921,7 @@ var _user$project$Calculator$generateFutureValues = function (model) {
 		_user$project$Calculator$generateYieldList(
 			_user$project$Calculator$buildAxis(model)));
 };
+var _user$project$Calculator$companyMMM = {$yield: 2.4e-2, fullName: '3M Company', purchasePrice: 233.0, growth: 0.148, dividend: 5.44};
 var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
 var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
 var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
@@ -11087,14 +11088,14 @@ var _user$project$Calculator$view = function (model) {
 													_1: {
 														ctor: '::',
 														_0: _elm_lang$html$Html_Events$onClick(
-															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyPG)),
+															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyMMM)),
 														_1: {ctor: '[]'}
 													}
 												}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('PG'),
+												_0: _elm_lang$html$Html$text('MMM'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
@@ -11110,14 +11111,14 @@ var _user$project$Calculator$view = function (model) {
 														_1: {
 															ctor: '::',
 															_0: _elm_lang$html$Html_Events$onClick(
-																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyKO)),
+																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyPG)),
 															_1: {ctor: '[]'}
 														}
 													}
 												},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('KO'),
+													_0: _elm_lang$html$Html$text('PG'),
 													_1: {ctor: '[]'}
 												}),
 											_1: {
@@ -11133,14 +11134,14 @@ var _user$project$Calculator$view = function (model) {
 															_1: {
 																ctor: '::',
 																_0: _elm_lang$html$Html_Events$onClick(
-																	_user$project$Calculator$SelectCompany(_user$project$Calculator$companyWMT)),
+																	_user$project$Calculator$SelectCompany(_user$project$Calculator$companyKO)),
 																_1: {ctor: '[]'}
 															}
 														}
 													},
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html$text('WMT'),
+														_0: _elm_lang$html$Html$text('KO'),
 														_1: {ctor: '[]'}
 													}),
 												_1: {
@@ -11156,17 +11157,41 @@ var _user$project$Calculator$view = function (model) {
 																_1: {
 																	ctor: '::',
 																	_0: _elm_lang$html$Html_Events$onClick(
-																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyJNJ)),
+																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyWMT)),
 																	_1: {ctor: '[]'}
 																}
 															}
 														},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('JNJ'),
+															_0: _elm_lang$html$Html$text('WMT'),
 															_1: {ctor: '[]'}
 														}),
-													_1: {ctor: '[]'}
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$button,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$type_('button'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onClick(
+																			_user$project$Calculator$SelectCompany(_user$project$Calculator$companyJNJ)),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('JNJ'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -11669,7 +11694,7 @@ var _user$project$Calculator$view = function (model) {
 																								return x * y;
 																							}),
 																						100,
-																						_user$project$Calculator$calculateAnnualReturn(
+																						_user$project$Calculator$calculateTotalReturn(
 																							_user$project$Calculator$generateFutureValues(model))))))),
 																	_1: {ctor: '[]'}
 																}),

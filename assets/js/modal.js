@@ -16,7 +16,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   	body = "The portfolio asset allocation is an actionable indicator that will help you make investment decisions. It doesn't matter whether you have a 401k, IRA, or a brokerage account. If the value meter is high and market prices are heading down, then your investable assets should be allocated toward stable dividend paying companies. If the value meter is low and prices are heading up, then your investable assets may remain in cash until conditions become more favorable.";
   } else if (dada === "Ranking") {
   	title = "Selection Process";
-  	body = "Businesses in our ranking are highly liquid and have paid increasing dividends for over two decades. These companies are also holdings in Berkshire Hathaway’s portfolio. Our list contains the most reliable dividend paying stocks currently available to value investors.";
+  	body = "Businesses in our ranking are highly liquid and have paid increasing dividends for over two decades, in addition to meeting other criteria. Our list contains the best dividend paying stocks currently available to value investors.";
   }
   modal.find('.modal-title').text(title);
   modal.find('.modal-body p').text(body);

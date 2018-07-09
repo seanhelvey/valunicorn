@@ -11694,7 +11694,7 @@ var _user$project$Calculator$view = function (model) {
 																								return x * y;
 																							}),
 																						100,
-																						_user$project$Calculator$calculateTotalReturn(
+																						_user$project$Calculator$calculateAnnualReturn(
 																							_user$project$Calculator$generateFutureValues(model))))))),
 																	_1: {ctor: '[]'}
 																}),

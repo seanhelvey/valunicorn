@@ -347,7 +347,7 @@ view model =
                     , div [ class "col-xs-5 col-sm-6" ]
                         [ Html.text "Annual Return" ]
                     , div [ class "col-xs-2 col-sm-3" ]
-                        [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateTotalReturn <| generateFutureValues model ]
+                        [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateAnnualReturn <| generateFutureValues model ]
                     , div [ class "col-xs-3 col-sm-2" ]
                         []
                     ]

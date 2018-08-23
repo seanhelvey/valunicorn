@@ -69,7 +69,9 @@
     <script>
       $(document).ready(function() {
         var node = document.getElementById('calculator');
-        var app = Elm.Calculator.embed(node);
+        var app = Elm.Calculator.init({
+          node: node
+        });
         var chart = c3.generate({
             data: {
               // columns: [["Future Value of Investment",1000,1032,1067.071488,1105.58317360998,1147.9586846655352,1194.6863737208487]]

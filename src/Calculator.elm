@@ -1,16 +1,15 @@
-port module Calculator exposing (..)
+port module Calculator exposing (Company, Model, Msg(..), addOneUpToHoldingPeriod, buildAxis, calculateAnnualReturn, calculateTotalReturn, chart, companyDefault, companyJNJ, companyKO, companyMMM, companyPG, companyWMT, generateFutureValues, generatePrincipal, generatePrincipalList, generateYield, generateYieldList, init, initialModel, main, nescanl, subscriptions, update, view)
 
+import Browser exposing (document, element)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import String
-import Debug exposing (log)
-import List.Nonempty as Nonempty exposing (Nonempty)
-import List.Extra as Extra exposing (unfoldr)
+import List.Extra as Extra exposing (scanl, unfoldr)
+import List.Nonempty as Nonempty exposing (..)
 
 
 main =
-    Html.program
+    Browser.element
         { init = init
         , view = view
         , update = update
@@ -41,8 +40,8 @@ type alias Company =
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : () -> ( Model, Cmd Msg )
+init _ =
     ( initialModel, Cmd.none )
 
 
@@ -125,6 +124,7 @@ addOneUpToHoldingPeriod : Float -> Float -> Maybe ( Float, Float )
 addOneUpToHoldingPeriod n b =
     if b == n then
         Nothing
+
     else
         Just ( b, b + 1.0 )
 
@@ -135,41 +135,48 @@ buildAxis model =
         newAxis =
             Nonempty.Nonempty 0.0 (Extra.unfoldr (addOneUpToHoldingPeriod model.holdingPeriod) 1.0)
     in
-        { model | xAxis = newAxis }
+    { model | xAxis = newAxis }
 
 
 generateYield : Model -> Float -> Float -> Float
 generateYield model a b =
     if a == 0 then
         model.company.yield
+
     else
         b * (1 + model.company.growth)
+
+
+nescanl : (a -> b -> b) -> b -> Nonempty a -> Nonempty b
+nescanl f b (Nonempty x xs) =
+    Nonempty b <| scanl f (f x b) xs
 
 
 generateYieldList : Model -> Model
 generateYieldList model =
     let
         generatedYieldList =
-            Nonempty.scanl (generateYield model) model.company.yield model.xAxis
+            nescanl (generateYield model) model.company.yield model.xAxis
     in
-        { model | yieldList = generatedYieldList }
+    { model | yieldList = generatedYieldList }
 
 
 generatePrincipal : Model -> Float -> Float -> Float
 generatePrincipal model a b =
     if a == 0 then
         (1 + model.company.yield) * b
+
     else
-        (((Nonempty.get (round a) model.yieldList) * b) * (1 + model.company.growth)) + b
+        ((Nonempty.get (round a) model.yieldList * b) * (1 + model.company.growth)) + b
 
 
 generatePrincipalList : Model -> Model
 generatePrincipalList model =
     let
         generatedPrincipalList =
-            Nonempty.scanl (generatePrincipal model) model.principal model.xAxis
+            nescanl (generatePrincipal model) model.principal model.xAxis
     in
-        { model | principalList = generatedPrincipalList }
+    { model | principalList = generatedPrincipalList }
 
 
 generateFutureValues : Model -> Model
@@ -210,7 +217,7 @@ update msg model =
                     company.dividend
 
                 newPurchasePrice =
-                    Result.withDefault 0 (String.toFloat newPrice)
+                    Maybe.withDefault 0 (String.toFloat newPrice)
 
                 newCompany =
                     { company | purchasePrice = newPurchasePrice, yield = dividend / newPurchasePrice }
@@ -218,31 +225,31 @@ update msg model =
                 newModel =
                     { model | company = newCompany }
             in
-                update BuildFutureValues newModel
+            update BuildFutureValues newModel
 
         SetHoldingPeriod newHoldingPeriod ->
             let
                 holdingPeriod =
-                    Result.withDefault 0 (String.toFloat newHoldingPeriod)
+                    Maybe.withDefault 0 (String.toFloat newHoldingPeriod)
 
                 newModel =
                     { model | holdingPeriod = holdingPeriod }
             in
-                update BuildFutureValues newModel
+            update BuildFutureValues newModel
 
         SelectCompany newCompany ->
             let
                 newModel =
                     { model | company = newCompany }
             in
-                ( newModel, Cmd.none )
+            ( newModel, Cmd.none )
 
         BuildFutureValues ->
             let
                 newModel =
                     generateFutureValues model
             in
-                update Chart newModel
+            update Chart newModel
 
         Chart ->
             ( model, chart <| Nonempty.toList model.principalList )
@@ -287,7 +294,7 @@ view model =
                     , div [ class "col-xs-5 col-sm-7" ]
                         [ Html.text "Current Yield" ]
                     , div [ class "col-xs-2 col-sm-1" ]
-                        [ Html.text ((String.left 4 (toString (model.company.yield * 100))) ++ "%") ]
+                        [ Html.text (String.left 4 (String.fromFloat (model.company.yield * 100)) ++ "%") ]
                     , div [ class "col-xs-3 col-sm-3" ]
                         []
                     ]
@@ -297,7 +304,7 @@ view model =
                     , div [ class "col-xs-5 col-sm-7" ]
                         [ Html.text "Dividend Growth" ]
                     , div [ class "col-xs-2 col-sm-1" ]
-                        [ Html.text ((String.left 4 (toString (model.company.growth * 100))) ++ "%") ]
+                        [ Html.text (String.left 4 (String.fromFloat (model.company.growth * 100)) ++ "%") ]
                     , div [ class "col-xs-3 col-sm-3" ]
                         []
                     ]
@@ -311,7 +318,7 @@ view model =
                     , div [ class "col-xs-4 col-sm-4" ]
                         [ Html.text "Purchase Price" ]
                     , div [ class "col-xs-4 col-sm-4" ]
-                        [ input [ id "puchasePrice", class "form-control", onInput SetPurchasePrice, value (toString model.company.purchasePrice) ]
+                        [ input [ id "puchasePrice", class "form-control", onInput SetPurchasePrice, value (String.fromFloat model.company.purchasePrice) ]
                             []
                         ]
                     , div [ class "col-xs-2 col-sm-2" ]
@@ -347,7 +354,7 @@ view model =
                     , div [ class "col-xs-5 col-sm-6" ]
                         [ Html.text "Annual Return" ]
                     , div [ class "col-xs-2 col-sm-3" ]
-                        [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateAnnualReturn <| generateFutureValues model ]
+                        [ Html.text <| (\a -> (++) a "%") <| String.left 4 <| String.fromFloat <| (*) 100 <| calculateAnnualReturn <| generateFutureValues model ]
                     , div [ class "col-xs-3 col-sm-2" ]
                         []
                     ]
@@ -357,7 +364,7 @@ view model =
                     , div [ class "col-xs-5 col-sm-6" ]
                         [ Html.text "Total Return" ]
                     , div [ class "col-xs-2 col-sm-3" ]
-                        [ Html.text <| flip (++) "%" <| String.left 4 <| toString <| (*) 100 <| calculateTotalReturn <| generateFutureValues model ]
+                        [ Html.text <| (\a -> (++) a "%") <| String.left 4 <| String.fromFloat <| (*) 100 <| calculateTotalReturn <| generateFutureValues model ]
                     , div [ class "col-xs-3 col-sm-2" ]
                         []
                     ]

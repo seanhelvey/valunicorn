@@ -140,11 +140,7 @@ buildAxis model =
 
 generateYield : Model -> Float -> Float -> Float
 generateYield model a b =
-    if a == 0 then
-        model.company.yield
-
-    else
-        b * (1 + model.company.growth)
+    b * (1 + model.company.growth)
 
 
 nescanl : (a -> b -> b) -> b -> Nonempty a -> Nonempty b
@@ -158,7 +154,7 @@ generateYieldList model =
         generatedYieldList =
             nescanl (generateYield model) model.company.yield model.xAxis
     in
-    { model | yieldList = generatedYieldList }
+    { model | yieldList = generatedYieldList}
 
 
 generatePrincipal : Model -> Float -> Float -> Float
@@ -167,7 +163,7 @@ generatePrincipal model a b =
         (1 + model.company.yield) * b
 
     else
-        ((Nonempty.get (round a) model.yieldList * b) * (1 + model.company.growth)) + b
+        (Nonempty.get (round a) model.yieldList * b) + b
 
 
 generatePrincipalList : Model -> Model

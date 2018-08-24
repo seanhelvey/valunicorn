@@ -4873,10 +4873,10 @@ var mgold$elm_nonempty_list$List$Nonempty$get = F2(
 	});
 var author$project$Calculator$generatePrincipal = F3(
 	function (model, a, b) {
-		return (!a) ? ((1 + model.company._yield) * b) : (((A2(
+		return (!a) ? ((1 + model.company._yield) * b) : ((A2(
 			mgold$elm_nonempty_list$List$Nonempty$get,
 			elm$core$Basics$round(a),
-			model.yieldList) * b) * (1 + model.company.growth)) + b);
+			model.yieldList) * b) + b);
 	});
 var elm_community$list_extra$List$Extra$scanl = F3(
 	function (f, b, xs) {
@@ -4925,7 +4925,7 @@ var author$project$Calculator$generatePrincipalList = function (model) {
 };
 var author$project$Calculator$generateYield = F3(
 	function (model, a, b) {
-		return (!a) ? model.company._yield : (b * (1 + model.company.growth));
+		return b * (1 + model.company.growth);
 	});
 var author$project$Calculator$generateYieldList = function (model) {
 	var generatedYieldList = A3(

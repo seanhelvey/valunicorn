@@ -19,7 +19,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   	body = "Businesses in our ranking are highly liquid and have paid increasing dividends for over two decades, in addition to meeting other criteria. Our list contains the best dividend paying stocks currently available to value investors.";
   } else if (dada === "Sustainability") {
   	title = "Sustainability";
-  	body = "Our methodology for choosing investments now includes not only classic value stocks but businesses focused on sustainability.";
+  	body = "Our methodology for choosing investments is focused on value and sustainability.";
   }
   modal.find('.modal-title').text(title);
   modal.find('.modal-body p').text(body);

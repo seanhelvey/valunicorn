@@ -52,19 +52,19 @@ $('#current').on('tap', function(e){
 });
 
 function loadCurrent() {
-    thermometer("thermo1", 13, 6, true);
+    thermometer("thermo1", 13, 9, true);
 
     chart.load({
         columns: [
-            ['Cash', 58],
-            ['Stock', 42]
+            ['Cash', 33],
+            ['Stock', 67]
         ]
     });
 
     $('#weather-vane').css({
-        '-ms-transform': 'rotate(-7.5deg)',
-        '-webkit-transform': 'rotate(-7.5deg)',
-        'transform': 'rotate(-7.5deg)',
+        '-ms-transform': 'rotate(15deg)',
+        '-webkit-transform': 'rotate(15deg)',
+        'transform': 'rotate(15deg)',
     });
 }
 

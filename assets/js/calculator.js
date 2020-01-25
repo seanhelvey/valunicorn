@@ -10921,11 +10921,8 @@ var _user$project$Calculator$generateFutureValues = function (model) {
 		_user$project$Calculator$generateYieldList(
 			_user$project$Calculator$buildAxis(model)));
 };
-var _user$project$Calculator$companyMMM = {$yield: 2.4e-2, fullName: '3M Company', purchasePrice: 233.0, growth: 0.148, dividend: 5.44};
-var _user$project$Calculator$companyJNJ = {$yield: 2.5e-2, fullName: 'Johnson & Johnson (JNJ)', purchasePrice: 116.0, growth: 6.9e-2, dividend: 2.95};
-var _user$project$Calculator$companyWMT = {$yield: 2.8e-2, fullName: 'Wal-Mart Stores Inc. (WMT)', purchasePrice: 70.0, growth: 0.101, dividend: 1.96};
-var _user$project$Calculator$companyKO = {$yield: 2.9e-2, fullName: 'The Coca-Cola Company (KO)', purchasePrice: 45.0, growth: 8.4e-2, dividend: 1.32};
-var _user$project$Calculator$companyPG = {$yield: 3.2e-2, fullName: 'The Procter & Gamble Company (PG)', purchasePrice: 83.0, growth: 6.2e-2, dividend: 2.65};
+var _user$project$Calculator$companyADM = {$yield: 4.0e-2, fullName: 'Archer-Daniels-Midland Company (ADM)', purchasePrice: 35.0, growth: 4.6e-2, dividend: 1.4};
+var _user$project$Calculator$companyCAT = {$yield: 3.7e-2, fullName: 'Caterpillar Inc. (CAT)', purchasePrice: 110.0, growth: 7.0e-2, dividend: 4.12};
 var _user$project$Calculator$companyDefault = {$yield: 5.0e-2, fullName: 'Select a company to begin', purchasePrice: 20.0, growth: 7.0e-2, dividend: 1.0};
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
@@ -11088,14 +11085,14 @@ var _user$project$Calculator$view = function (model) {
 													_1: {
 														ctor: '::',
 														_0: _elm_lang$html$Html_Events$onClick(
-															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyMMM)),
+															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyCAT)),
 														_1: {ctor: '[]'}
 													}
 												}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('MMM'),
+												_0: _elm_lang$html$Html$text('CAT'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
@@ -11111,89 +11108,17 @@ var _user$project$Calculator$view = function (model) {
 														_1: {
 															ctor: '::',
 															_0: _elm_lang$html$Html_Events$onClick(
-																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyPG)),
+																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyADM)),
 															_1: {ctor: '[]'}
 														}
 													}
 												},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('PG'),
+													_0: _elm_lang$html$Html$text('ADM'),
 													_1: {ctor: '[]'}
 												}),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$button,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$type_('button'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Events$onClick(
-																	_user$project$Calculator$SelectCompany(_user$project$Calculator$companyKO)),
-																_1: {ctor: '[]'}
-															}
-														}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('KO'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$button,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$type_('button'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onClick(
-																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyWMT)),
-																	_1: {ctor: '[]'}
-																}
-															}
-														},
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html$text('WMT'),
-															_1: {ctor: '[]'}
-														}),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$button,
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$type_('button'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onClick(
-																			_user$project$Calculator$SelectCompany(_user$project$Calculator$companyJNJ)),
-																		_1: {ctor: '[]'}
-																	}
-																}
-															},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('JNJ'),
-																_1: {ctor: '[]'}
-															}),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
+											_1: {ctor: '[]'}
 										}
 									}),
 								_1: {ctor: '[]'}

@@ -67,56 +67,24 @@ companyDefault =
     }
 
 
-companyPG : Company
-companyPG =
-    { yield = 0.032
-    , fullName = "The Procter & Gamble Company (PG)"
-    , purchasePrice = 83.0
-    , growth = 0.062
-    , dividend = 2.65
+companyCAT : Company
+companyCAT =
+    { yield = 0.037
+    , fullName = "Caterpillar Inc. (CAT)"
+    , purchasePrice = 110.0
+    , growth = 0.070
+    , dividend = 4.12
     }
 
 
-companyKO : Company
-companyKO =
-    { yield = 0.029
-    , fullName = "The Coca-Cola Company (KO)"
-    , purchasePrice = 45.0
-    , growth = 0.084
-    , dividend = 1.32
+companyADM : Company
+companyADM =
+    { yield = 0.040
+    , fullName = "Archer-Daniels-Midland Company (ADM)"
+    , purchasePrice = 35.0
+    , growth = 0.046
+    , dividend = 1.40
     }
-
-
-companyWMT : Company
-companyWMT =
-    { yield = 0.028
-    , fullName = "Wal-Mart Stores Inc. (WMT)"
-    , purchasePrice = 70.0
-    , growth = 0.101
-    , dividend = 1.96
-    }
-
-
-companyJNJ : Company
-companyJNJ =
-    { yield = 0.025
-    , fullName = "Johnson & Johnson (JNJ)"
-    , purchasePrice = 116.0
-    , growth = 0.069
-    , dividend = 2.95
-    }
-
-
-companyMMM : Company
-companyMMM =
-    { yield = 0.024
-    , fullName = "3M Company"
-    , purchasePrice = 233.0
-    , growth = 0.148
-    , dividend = 5.44
-    }
-
-
 
 -- UPDATE
 
@@ -264,16 +232,10 @@ view model =
             [ h2 [] [ Html.text model.company.fullName ]
             , div [ class "row extra-margin" ]
                 [ div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick BuildFutureValues ]
-                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyMMM) ]
-                        [ text "MMM" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyPG) ]
-                        [ text "PG" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyKO) ]
-                        [ text "KO" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyWMT) ]
-                        [ text "WMT" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyJNJ) ]
-                        [ text "JNJ" ]
+                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyCAT) ]
+                        [ text "CAT" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyADM) ]
+                        [ text "ADM" ]
                     ]
                 ]
             ]

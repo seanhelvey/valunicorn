@@ -66,22 +66,38 @@ companyDefault =
     , dividend = 1.0
     }
 
+companyIBM : Company
+companyIBM =
+    { yield = 0.066
+    , fullName = "International Business Machines (IBM)"
+    , purchasePrice = 98.0
+    , growth = 0.053
+    , dividend = 6.48
+    }
 
 companyCAT : Company
 companyCAT =
-    { yield = 0.037
-    , fullName = "Caterpillar Inc. (CAT)"
-    , purchasePrice = 110.0
+    { yield = 0.048
+    , fullName = "Caterpillar (CAT)"
+    , purchasePrice = 85.0
     , growth = 0.070
     , dividend = 4.12
     }
 
+companyMDT : Company
+companyMDT =
+    { yield = 0.027
+    , fullName = "Medtronic (MDT)"
+    , purchasePrice = 80.0
+    , growth = 0.083
+    , dividend = 2.16
+    }
 
 companyADM : Company
 companyADM =
-    { yield = 0.040
-    , fullName = "Archer-Daniels-Midland Company (ADM)"
-    , purchasePrice = 35.0
+    { yield = 0.047
+    , fullName = "Archer-Daniels-Midland (ADM)"
+    , purchasePrice = 30.0
     , growth = 0.046
     , dividend = 1.40
     }
@@ -232,8 +248,12 @@ view model =
             [ h2 [] [ Html.text model.company.fullName ]
             , div [ class "row extra-margin" ]
                 [ div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick BuildFutureValues ]
-                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyCAT) ]
+                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyIBM) ]
+                        [ text "IBM" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyCAT) ]
                         [ text "CAT" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyMDT) ]
+                        [ text "MDT" ]
                     , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyADM) ]
                         [ text "ADM" ]
                     ]

@@ -93,15 +93,6 @@ companyMDT =
     , dividend = 2.16
     }
 
-companyADM : Company
-companyADM =
-    { yield = 0.047
-    , fullName = "Archer-Daniels-Midland (ADM)"
-    , purchasePrice = 30.0
-    , growth = 0.046
-    , dividend = 1.40
-    }
-
 -- UPDATE
 
 
@@ -254,8 +245,6 @@ view model =
                         [ text "CAT" ]
                     , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyMDT) ]
                         [ text "MDT" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyADM) ]
-                        [ text "ADM" ]
                     ]
                 ]
             ]

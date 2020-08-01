@@ -10921,7 +10921,6 @@ var _user$project$Calculator$generateFutureValues = function (model) {
 		_user$project$Calculator$generateYieldList(
 			_user$project$Calculator$buildAxis(model)));
 };
-var _user$project$Calculator$companyADM = {$yield: 4.7e-2, fullName: 'Archer-Daniels-Midland (ADM)', purchasePrice: 30.0, growth: 4.6e-2, dividend: 1.4};
 var _user$project$Calculator$companyMDT = {$yield: 2.7e-2, fullName: 'Medtronic (MDT)', purchasePrice: 80.0, growth: 8.3e-2, dividend: 2.16};
 var _user$project$Calculator$companyCAT = {$yield: 4.8e-2, fullName: 'Caterpillar (CAT)', purchasePrice: 85.0, growth: 7.0e-2, dividend: 4.12};
 var _user$project$Calculator$companyIBM = {$yield: 6.6e-2, fullName: 'International Business Machines (IBM)', purchasePrice: 98.0, growth: 5.3e-2, dividend: 6.48};
@@ -11143,31 +11142,7 @@ var _user$project$Calculator$view = function (model) {
 														_0: _elm_lang$html$Html$text('MDT'),
 														_1: {ctor: '[]'}
 													}),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$button,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$type_('button'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onClick(
-																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyADM)),
-																	_1: {ctor: '[]'}
-																}
-															}
-														},
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html$text('ADM'),
-															_1: {ctor: '[]'}
-														}),
-													_1: {ctor: '[]'}
-												}
+												_1: {ctor: '[]'}
 											}
 										}
 									}),

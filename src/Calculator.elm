@@ -77,7 +77,7 @@ companyIBM =
 
 companyCAT : Company
 companyCAT =
-    { yield = 0.048
+    { yield = 0.037
     , fullName = "Caterpillar (CAT)"
     , purchasePrice = 85.0
     , growth = 0.070

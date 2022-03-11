@@ -10921,9 +10921,9 @@ var _user$project$Calculator$generateFutureValues = function (model) {
 		_user$project$Calculator$generateYieldList(
 			_user$project$Calculator$buildAxis(model)));
 };
-var _user$project$Calculator$companyMDT = {$yield: 2.7e-2, fullName: 'Medtronic (MDT)', purchasePrice: 80.0, growth: 8.3e-2, dividend: 2.16};
-var _user$project$Calculator$companyCAT = {$yield: 4.8e-2, fullName: 'Caterpillar (CAT)', purchasePrice: 85.0, growth: 7.0e-2, dividend: 4.12};
-var _user$project$Calculator$companyIBM = {$yield: 6.6e-2, fullName: 'International Business Machines (IBM)', purchasePrice: 98.0, growth: 5.3e-2, dividend: 6.48};
+var _user$project$Calculator$companyMDT = {$yield: 2.3e-2, fullName: 'Medtronic (MDT)', purchasePrice: 92.0, growth: 8.1e-2, dividend: 2.47};
+var _user$project$Calculator$companyADP = {$yield: 1.8e-2, fullName: 'Automatic Data Processing (ADP)', purchasePrice: 180.0, growth: 0.121, dividend: 3.83};
+var _user$project$Calculator$companyAPD = {$yield: 2.6e-2, fullName: 'Air Products and Chemicals (APD)', purchasePrice: 200.0, growth: 0.118, dividend: 6.0};
 var _user$project$Calculator$companyDefault = {$yield: 5.0e-2, fullName: 'Select a company to begin', purchasePrice: 20.0, growth: 7.0e-2, dividend: 1.0};
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
@@ -11086,14 +11086,14 @@ var _user$project$Calculator$view = function (model) {
 													_1: {
 														ctor: '::',
 														_0: _elm_lang$html$Html_Events$onClick(
-															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyIBM)),
+															_user$project$Calculator$SelectCompany(_user$project$Calculator$companyAPD)),
 														_1: {ctor: '[]'}
 													}
 												}
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('IBM'),
+												_0: _elm_lang$html$Html$text('APD'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
@@ -11109,14 +11109,14 @@ var _user$project$Calculator$view = function (model) {
 														_1: {
 															ctor: '::',
 															_0: _elm_lang$html$Html_Events$onClick(
-																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyCAT)),
+																_user$project$Calculator$SelectCompany(_user$project$Calculator$companyADP)),
 															_1: {ctor: '[]'}
 														}
 													}
 												},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('CAT'),
+													_0: _elm_lang$html$Html$text('ADP'),
 													_1: {ctor: '[]'}
 												}),
 											_1: {

@@ -66,31 +66,31 @@ companyDefault =
     , dividend = 1.0
     }
 
-companyIBM : Company
-companyIBM =
-    { yield = 0.066
-    , fullName = "International Business Machines (IBM)"
-    , purchasePrice = 98.0
-    , growth = 0.053
-    , dividend = 6.48
+companyAPD : Company
+companyAPD =
+    { yield = 0.026
+    , fullName = "Air Products and Chemicals (APD)"
+    , purchasePrice = 200.0
+    , growth = 0.118
+    , dividend = 6.00
     }
 
-companyCAT : Company
-companyCAT =
-    { yield = 0.037
-    , fullName = "Caterpillar (CAT)"
-    , purchasePrice = 85.0
-    , growth = 0.070
-    , dividend = 4.12
+companyADP : Company
+companyADP =
+    { yield = 0.018
+    , fullName = "Automatic Data Processing (ADP)"
+    , purchasePrice = 180.0
+    , growth = 0.121
+    , dividend = 3.83
     }
 
 companyMDT : Company
 companyMDT =
-    { yield = 0.027
+    { yield = 0.023
     , fullName = "Medtronic (MDT)"
-    , purchasePrice = 80.0
-    , growth = 0.083
-    , dividend = 2.16
+    , purchasePrice = 92.0
+    , growth = 0.081
+    , dividend = 2.47
     }
 
 -- UPDATE
@@ -239,10 +239,10 @@ view model =
             [ h2 [] [ Html.text model.company.fullName ]
             , div [ class "row extra-margin" ]
                 [ div [ attribute "aria-label" "...", class "btn-group btn-group", attribute "role" "group", onClick BuildFutureValues ]
-                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyIBM) ]
-                        [ text "IBM" ]
-                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyCAT) ]
-                        [ text "CAT" ]
+                    [ button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyAPD) ]
+                        [ text "APD" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyADP) ]
+                        [ text "ADP" ]
                     , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyMDT) ]
                         [ text "MDT" ]
                     ]

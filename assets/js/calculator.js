@@ -10921,9 +10921,11 @@ var _user$project$Calculator$generateFutureValues = function (model) {
 		_user$project$Calculator$generateYieldList(
 			_user$project$Calculator$buildAxis(model)));
 };
-var _user$project$Calculator$companyMDT = {$yield: 2.3e-2, fullName: 'Medtronic (MDT)', purchasePrice: 92.0, growth: 8.1e-2, dividend: 2.47};
-var _user$project$Calculator$companyADP = {$yield: 1.8e-2, fullName: 'Automatic Data Processing (ADP)', purchasePrice: 180.0, growth: 0.121, dividend: 3.83};
-var _user$project$Calculator$companyAPD = {$yield: 2.6e-2, fullName: 'Air Products and Chemicals (APD)', purchasePrice: 200.0, growth: 0.118, dividend: 6.0};
+var _user$project$Calculator$companyLOW = {$yield: 1.4e-2, fullName: 'Lowe\'s (LOW)', purchasePrice: 182.0, growth: 0.173, dividend: 2.8};
+var _user$project$Calculator$companyNEE = {$yield: 1.8e-2, fullName: 'NextEra Energy (NEE)', purchasePrice: 76.0, growth: 0.121, dividend: 1.54};
+var _user$project$Calculator$companyMDT = {$yield: 3.2e-2, fullName: 'Medtronic (MDT)', purchasePrice: 70.0, growth: 8.1e-2, dividend: 2.47};
+var _user$project$Calculator$companyADP = {$yield: 1.6e-2, fullName: 'Automatic Data Processing (ADP)', purchasePrice: 216.0, growth: 0.121, dividend: 3.83};
+var _user$project$Calculator$companyAPD = {$yield: 1.9e-2, fullName: 'Air Products and Chemicals (APD)', purchasePrice: 280.0, growth: 0.118, dividend: 6.0};
 var _user$project$Calculator$companyDefault = {$yield: 5.0e-2, fullName: 'Select a company to begin', purchasePrice: 20.0, growth: 7.0e-2, dividend: 1.0};
 var _user$project$Calculator$initialModel = {
 	company: _user$project$Calculator$companyDefault,
@@ -11142,7 +11144,55 @@ var _user$project$Calculator$view = function (model) {
 														_0: _elm_lang$html$Html$text('MDT'),
 														_1: {ctor: '[]'}
 													}),
-												_1: {ctor: '[]'}
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$button,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$type_('button'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Events$onClick(
+																		_user$project$Calculator$SelectCompany(_user$project$Calculator$companyNEE)),
+																	_1: {ctor: '[]'}
+																}
+															}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('NEE'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$button,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$type_('button'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onClick(
+																			_user$project$Calculator$SelectCompany(_user$project$Calculator$companyLOW)),
+																		_1: {ctor: '[]'}
+																	}
+																}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('LOW'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}
 											}
 										}
 									}),

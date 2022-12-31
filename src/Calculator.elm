@@ -68,29 +68,47 @@ companyDefault =
 
 companyAPD : Company
 companyAPD =
-    { yield = 0.026
+    { yield = 0.019
     , fullName = "Air Products and Chemicals (APD)"
-    , purchasePrice = 200.0
+    , purchasePrice = 280.0
     , growth = 0.118
     , dividend = 6.00
     }
 
 companyADP : Company
 companyADP =
-    { yield = 0.018
+    { yield = 0.016
     , fullName = "Automatic Data Processing (ADP)"
-    , purchasePrice = 180.0
+    , purchasePrice = 216.0
     , growth = 0.121
     , dividend = 3.83
     }
 
 companyMDT : Company
 companyMDT =
-    { yield = 0.023
+    { yield = 0.032
     , fullName = "Medtronic (MDT)"
-    , purchasePrice = 92.0
+    , purchasePrice = 70.0
     , growth = 0.081
     , dividend = 2.47
+    }
+
+companyNEE : Company
+companyNEE =
+    { yield = 0.018
+    , fullName = "NextEra Energy (NEE)"
+    , purchasePrice = 76.0
+    , growth = 0.121
+    , dividend = 1.54
+    }
+
+companyLOW : Company
+companyLOW =
+    { yield = 0.014
+    , fullName = "Lowe's (LOW)"
+    , purchasePrice = 182.0
+    , growth = 0.173
+    , dividend = 2.8
     }
 
 -- UPDATE
@@ -245,6 +263,10 @@ view model =
                         [ text "ADP" ]
                     , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyMDT) ]
                         [ text "MDT" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyNEE) ]
+                        [ text "NEE" ]
+                    , button [ class "btn btn-default", type_ "button", onClick (SelectCompany companyLOW) ]
+                        [ text "LOW" ]
                     ]
                 ]
             ]
